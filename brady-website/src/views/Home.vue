@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import emailjs from '@emailjs/browser';
+import heroPoster from '../assets/hero_baner.png'
 
 // Testimonials data
 const testimonials = ref([
@@ -35,6 +36,11 @@ let testimonialInterval;
 
 onMounted(() => {
   startTestimonialRotation();
+  // If we've already loaded the hero video once in this session, skip the poster
+  if (typeof window !== 'undefined' && window.sessionStorage) {
+    const loadedBefore = sessionStorage.getItem('heroVideoReady') === '1'
+    showPoster.value = !loadedBefore
+  }
 });
 
 const startTestimonialRotation = () => {
@@ -60,6 +66,15 @@ const nextTestimonial = () => {
 const prevTestimonial = () => {
   currentTestimonial.value = (currentTestimonial.value - 1 + testimonials.value.length) % testimonials.value.length;
 };
+
+// Hero video: show placeholder image until the video is ready (first load only)
+const showPoster = ref(true)
+const onVideoReady = () => {
+  if (showPoster.value) {
+    showPoster.value = false
+    try { sessionStorage.setItem('heroVideoReady', '1') } catch (_) { /* no-op */ }
+  }
+}
 
 // CTA Modal State
 const showCtaModal = ref(false);
@@ -122,10 +137,31 @@ const submitCta = async () => {
 <template>
   <!-- Luxurious Hero Section with Advanced Design Elements -->
   <section class="relative h-screen overflow-hidden">
-    <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
-      <source src="../assets/BradWebsiteHero2.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <!-- Background media container -->
+    <div class="absolute inset-0 w-full h-full">
+      <!-- Video (always rendered). When it becomes ready, we hide the poster -->
+      <video
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        autoplay
+        muted
+        loop
+        playsinline
+        @loadeddata="onVideoReady"
+        @canplay="onVideoReady"
+        @canplaythrough="onVideoReady"
+      >
+        <source src="../assets/BradWebsiteHero2.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Poster image shown until the video is ready (first load only) -->
+      <img
+        v-if="showPoster"
+        :src="heroPoster"
+        alt="Hero placeholder"
+        class="absolute inset-0 w-full h-full object-cover z-10"
+      />
+    </div>
 
     <!-- Overlay for readability -->
     <div class="absolute inset-0 bg-black/40"></div>
