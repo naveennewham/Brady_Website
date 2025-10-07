@@ -87,14 +87,14 @@ const toggleMenu = () => {
       </nav>
 
       <!-- Mobile Navigation -->
-      <div v-if="isMenuOpen" class="md:hidden mt-4 pb-4">
+      <div v-if="isMenuOpen" class="md:hidden mt-4 pb-4 bg-brady-gold/10 text-white border border-brady-gold/30 backdrop-blur-md shadow-xl rounded-md px-4">
         <div class="flex flex-col space-y-4">
-          <router-link @click="isMenuOpen = false" to="/" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Home</router-link>
-          <router-link @click="isMenuOpen = false" to="/about" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">About</router-link>
-          <router-link @click="isMenuOpen = false" to="/engineering-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
-          <router-link @click="isMenuOpen = false" to="/interior-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Interior</router-link>
-          <router-link @click="isMenuOpen = false" to="/portfolio" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
-          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Case Studies</router-link>
+          <router-link @click="isMenuOpen = false" to="/" class="text-white hover:text-brady-gold font-medium transition-colors">Home</router-link>
+          <router-link @click="isMenuOpen = false" to="/about" class="text-white hover:text-brady-gold font-medium transition-colors">About</router-link>
+          <router-link @click="isMenuOpen = false" to="/engineering-services" class="text-white hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
+          <router-link @click="isMenuOpen = false" to="/interior-services" class="text-white hover:text-brady-gold font-medium transition-colors">Interior</router-link>
+          <router-link @click="isMenuOpen = false" to="/portfolio" class="text-white hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
+          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-white hover:text-brady-gold font-medium transition-colors">Case Studies</router-link>
           <router-link @click="isMenuOpen = false" to="/contact" class="btn-primary inline-block text-center">Contact Us</router-link>
         </div>
       </div>
