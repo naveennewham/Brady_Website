@@ -4,17 +4,24 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration via Vite env variables
+// Define these in .env.local at the project root
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "brady-construction.firebaseapp.com",
-  projectId: "brady-construction",
-  storageBucket: "brady-construction.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+// Simple runtime check to help diagnose missing env values during development
+if (!firebaseConfig.apiKey) {
+  // eslint-disable-next-line no-console
+  console.error("Firebase config is missing. Did you create .env.local and restart Vite?", firebaseConfig);
+  throw new Error("Missing VITE_FIREBASE_API_KEY. Check .env.local and restart the dev server.");
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -218,11 +218,26 @@ onMounted(() => {
   fetchProjects();
   window.addEventListener('keydown', handleKeyDown);
 });
+
+// Fallback image handler for broken/empty images
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=60'
+const onImgError = (e) => {
+  if (e && e.target) {
+    e.target.src = FALLBACK_IMG
+  }
+}
 </script>
 
 <template>
   <!-- Hero Section -->
   <section class="relative py-20 md:py-32 bg-gradient-dark overflow-hidden">
+    <!-- Hero Background Image -->
+    <div class="absolute inset-0">
+      <div 
+        class="w-full h-full bg-center bg-cover opacity-20"
+        style="background-image: url('https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1600&q=60');"
+      ></div>
+    </div>
     <div class="absolute inset-0 opacity-10">
       <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <pattern id="portfolio-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -239,12 +254,16 @@ onMounted(() => {
         <p class="text-xl text-gray-300 mb-8">
           Explore our diverse range of engineering and interior design projects that showcase our expertise and commitment to excellence.
         </p>
+        <div class="flex flex-wrap gap-4">
+          <router-link to="/contact" class="btn-primary">Book Appointment</router-link>
+          <a href="#portfolio-grid" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">Browse Projects</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Portfolio Section -->
-  <section class="py-16 md:py-24">
+  <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <!-- Filter Tabs -->
       <div class="flex flex-wrap justify-center mb-12">
@@ -253,7 +272,7 @@ onMounted(() => {
           :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
                   activeFilter === 'all' 
                     ? 'bg-brady-gold text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200']"
+                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
         >
           All Projects
         </button>
@@ -262,7 +281,7 @@ onMounted(() => {
           :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
                   activeFilter === 'engineering' 
                     ? 'bg-brady-gold text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200']"
+                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
         >
           Engineering
         </button>
@@ -271,7 +290,7 @@ onMounted(() => {
           :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
                   activeFilter === 'interior' 
                     ? 'bg-brady-gold text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200']"
+                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
         >
           Interior Design
         </button>
@@ -287,12 +306,12 @@ onMounted(() => {
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p class="text-lg text-gray-700">{{ error }}</p>
+        <p class="text-lg text-gray-300">{{ error }}</p>
         <button @click="fetchProjects" class="mt-4 btn-primary">Try Again</button>
       </div>
 
       <!-- Projects Grid -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="portfolio-grid" v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div 
           v-for="project in filteredProjects" 
           :key="project.id" 
@@ -304,14 +323,15 @@ onMounted(() => {
               :src="project.images[0]" 
               :alt="project.title" 
               class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              @error="onImgError"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-brady-charcoal to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
               <span class="text-white font-medium px-4 py-2 rounded-md border border-white">View Project</span>
             </div>
           </div>
           <span class="text-brady-gold font-medium">{{ project.subcategory }}</span>
-          <h3 class="text-xl font-bold text-brady-charcoal">{{ project.title }}</h3>
-          <p class="text-gray-600 line-clamp-2">{{ project.description }}</p>
+          <h3 class="text-xl font-bold text-white">{{ project.title }}</h3>
+          <p class="text-gray-300 line-clamp-2">{{ project.description }}</p>
         </div>
       </div>
 
@@ -320,7 +340,7 @@ onMounted(() => {
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
         </svg>
-        <p class="text-lg text-gray-700">No projects found in this category.</p>
+        <p class="text-lg text-gray-300">No projects found in this category.</p>
       </div>
     </div>
   </section>
@@ -332,13 +352,13 @@ onMounted(() => {
     @click.self="closeProjectModal"
   >
     <div 
-      class="bg-white rounded-lg shadow-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto"
+      class="glass-card rounded-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto"
       :class="{ 'animate-fade-in': isModalOpen }"
     >
       <!-- Modal Header -->
-      <div class="flex justify-between items-center p-6 border-b">
-        <h3 class="text-2xl font-bold text-brady-charcoal">{{ selectedProject?.title }}</h3>
-        <button @click="closeProjectModal" class="text-gray-500 hover:text-brady-charcoal transition-colors">
+      <div class="flex justify-between items-center p-6 border-b border-brady-gray-700">
+        <h3 class="text-2xl font-bold text-white">{{ selectedProject?.title }}</h3>
+        <button @click="closeProjectModal" class="text-gray-300 hover:text-white transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -346,7 +366,7 @@ onMounted(() => {
       </div>
 
       <!-- Modal Content -->
-      <div class="p-6">
+      <div class="p-6 text-gray-300">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Image Gallery -->
           <div class="relative">
@@ -356,13 +376,14 @@ onMounted(() => {
                 :src="selectedProject.images[currentImageIndex]" 
                 :alt="selectedProject.title" 
                 class="w-full h-auto"
+                @error="onImgError"
               >
 
               <!-- Navigation Arrows -->
               <button 
                 v-if="selectedProject && selectedProject.images.length > 1"
                 @click.stop="prevImage" 
-                class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white bg-opacity-80 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors"
+                class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-brady-gray-800 bg-opacity-80 text-white hover:bg-brady-gold hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -371,7 +392,7 @@ onMounted(() => {
               <button 
                 v-if="selectedProject && selectedProject.images.length > 1"
                 @click.stop="nextImage" 
-                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white bg-opacity-80 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors"
+                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-brady-gray-800 bg-opacity-80 text-white hover:bg-brady-gold hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -388,7 +409,7 @@ onMounted(() => {
                 :class="['w-16 h-16 rounded-md overflow-hidden flex-shrink-0 border-2', 
                         currentImageIndex === index ? 'border-brady-gold' : 'border-transparent']"
               >
-                <img :src="image" :alt="`Thumbnail ${index + 1}`" class="w-full h-full object-cover">
+                <img :src="image" :alt="`Thumbnail ${index + 1}`" class="w-full h-full object-cover" @error="onImgError">
               </button>
             </div>
           </div>
@@ -397,24 +418,24 @@ onMounted(() => {
           <div>
             <div class="mb-6">
               <h4 class="text-lg font-semibold text-brady-gold mb-2">Project Details</h4>
-              <p class="text-gray-700 mb-4">{{ selectedProject?.description }}</p>
+              <p class="text-gray-300 mb-4">{{ selectedProject?.description }}</p>
               
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                 <div>
-                  <h5 class="text-sm font-medium text-gray-500">CLIENT</h5>
-                  <p class="text-brady-charcoal">{{ selectedProject?.client }}</p>
+                  <h5 class="text-sm font-medium text-gray-400">CLIENT</h5>
+                  <p class="text-white">{{ selectedProject?.client }}</p>
                 </div>
                 <div>
-                  <h5 class="text-sm font-medium text-gray-500">LOCATION</h5>
-                  <p class="text-brady-charcoal">{{ selectedProject?.location }}</p>
+                  <h5 class="text-sm font-medium text-gray-400">LOCATION</h5>
+                  <p class="text-white">{{ selectedProject?.location }}</p>
                 </div>
                 <div>
-                  <h5 class="text-sm font-medium text-gray-500">YEAR</h5>
-                  <p class="text-brady-charcoal">{{ selectedProject?.year }}</p>
+                  <h5 class="text-sm font-medium text-gray-400">YEAR</h5>
+                  <p class="text-white">{{ selectedProject?.year }}</p>
                 </div>
                 <div>
-                  <h5 class="text-sm font-medium text-gray-500">CATEGORY</h5>
-                  <p class="text-brady-charcoal">{{ selectedProject?.subcategory }}</p>
+                  <h5 class="text-sm font-medium text-gray-400">CATEGORY</h5>
+                  <p class="text-white">{{ selectedProject?.subcategory }}</p>
                 </div>
               </div>
             </div>
@@ -422,22 +443,22 @@ onMounted(() => {
             <div class="mt-8">
               <h4 class="text-lg font-semibold text-brady-gold mb-4">Share This Project</h4>
               <div class="flex space-x-4">
-                <a href="#" class="p-2 rounded-full bg-gray-100 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
                   </svg>
                 </a>
-                <a href="#" class="p-2 rounded-full bg-gray-100 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
                   </svg>
                 </a>
-                <a href="#" class="p-2 rounded-full bg-gray-100 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
                   </svg>
                 </a>
-                <a href="#" class="p-2 rounded-full bg-gray-100 text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
                   </svg>
@@ -449,7 +470,7 @@ onMounted(() => {
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-6 border-t">
+      <div class="p-6 border-t border-brady-gray-700">
         <div class="flex justify-between">
           <router-link to="/contact" class="btn-primary">Contact Us About This Project</router-link>
           <button @click="closeProjectModal" class="btn-outline">Close</button>

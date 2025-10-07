@@ -1,89 +1,88 @@
 <script setup>
+import heroImg from '../assets/eng services/constructionservice.jpg'
+import mechImg from '../assets/eng services/Mechanical.jpg'
+import elecImg from '../assets/eng services/Electrical.jpg'
+import ecsImg from '../assets/eng services/electionic and communication.jpg'
+import sysIntImg from '../assets/eng services/system integration.jpg'
+import weldImg from '../assets/eng services/welding.jpg'
+import paintImg from '../assets/eng services/painting.jpg'
 // Engineering services data
 const engineeringServices = [
   {
     id: 1,
     title: 'Mechanical Engineering Services',
-    description: 'Our mechanical engineering team provides comprehensive solutions for HVAC systems, plumbing, fire protection, and other mechanical aspects of construction projects. We focus on energy efficiency, sustainability, and optimal performance.',
+    description: 'Supply, installation, testing, commissioning, maintenance and repair of mechanical equipment such as ACMV, Plumbing & Sanitary and Fire Protection (FP) systems for buildings and facilities.',
     features: [
-      'HVAC system design and optimization',
-      'Plumbing system design',
-      'Fire protection systems',
-      'Energy modeling and analysis',
-      'Sustainable mechanical solutions',
-      'Mechanical equipment selection'
+      'Air-Conditioning & Mechanical Ventilation (ACMV): cooling towers, chillers & piping, AHUs, EMS',
+      'Plumbing & sanitary: piping systems, mechanical valves and pumps',
+      'Fire protection: hydrants, hose-reels, dry/wet risers, alarms',
+      'FP integration with BAS for doors, ventilation, lifts',
+      'Testing, commissioning and maintenance of mechanical systems'
     ],
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: mechImg
   },
   {
     id: 2,
     title: 'Electrical Engineering Services',
-    description: 'Our electrical engineering services cover all aspects of electrical systems for buildings, from power distribution to lighting design. We prioritize safety, efficiency, and innovative solutions that meet modern demands.',
+    description: 'Testing & commissioning, service & maintenance for HV/LV equipment and systems with comprehensive diagnostics and instrumentation.',
     features: [
-      'Power distribution system design',
-      'Lighting design and controls',
-      'Emergency power systems',
-      'Electrical load calculations',
-      'Energy-efficient electrical solutions',
-      'Smart building electrical systems'
+      'UPS and lightning protection systems',
+      'Cable support & underfloor trunking systems',
+      'Luminaires & lamps, switchgear/transformer',
+      'HV/LV cable testing, jointing & termination',
+      'Partial discharge & infrared thermographic',
+      'Instrumentation and control systems'
     ],
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: elecImg
   },
   {
     id: 3,
-    title: 'Electronics and Communication Systems',
-    description: 'We design and implement cutting-edge electronics and communication systems that enhance building functionality, security, and user experience. Our solutions integrate seamlessly with other building systems.',
+    title: 'Electronics and Communication System',
+    description: 'Installation, repair and maintenance of ELV and smart systems to enhance security, convenience and building operations.',
     features: [
-      'Audio-visual system design',
-      'Security and access control systems',
-      'Data and communication networks',
-      'Building automation systems',
-      'Wireless infrastructure',
-      'IoT integration'
+      'CCTV surveillance systems',
+      'Security door access systems',
+      'Automated home solutions (smart controls)',
+      'Data/communication network coordination'
     ],
-    image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: ecsImg
   },
   {
     id: 4,
     title: 'Systems Integration',
-    description: 'Our systems integration expertise ensures that all building systems work together harmoniously, maximizing efficiency, functionality, and user comfort. We create smart, responsive environments that adapt to user needs.',
+    description: 'Integration of electrical and mechanical systems into a unified, seamless operation to ensure reliable performance.',
     features: [
-      'Building management systems',
-      'Cross-system communication protocols',
+      'Electrical-mechanical systems integration',
       'Central control and monitoring',
-      'System performance optimization',
-      'User interface design',
-      'Remote access and control'
+      'Cross-system coordination & protocols',
+      'Performance testing & optimization'
     ],
-    image: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: sysIntImg
   },
   {
     id: 5,
     title: 'Steel Welding and Fabrication',
-    description: 'Our skilled team provides precision steel welding and fabrication services for structural components and custom architectural elements. We combine technical expertise with craftsmanship to deliver high-quality results.',
+    description: 'Supply and fabrication of architectural and structural metal works across link ways, façades and access elements.',
     features: [
-      'Structural steel fabrication',
-      'Custom architectural metalwork',
-      'Stainless steel fabrication',
-      'Aluminum fabrication',
-      'Welding services (MIG, TIG, Stick)',
-      'Quality control and testing'
+      'Link ways, railings and pavilions',
+      'Drop-off structures, cat ladders & walks',
+      'Roof façade metal cladding',
+      'Perforated panel cladding',
+      'Custom steel fabrication & welding'
     ],
-    image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: weldImg
   },
   {
     id: 6,
-    title: 'Painting and Waterproofing',
-    description: 'Our painting and waterproofing services protect structures from the elements while enhancing their aesthetic appeal. We use high-quality materials and proven techniques to ensure durability and visual impact.',
+    title: 'Painting/ Waterproofing',
+    description: 'Internal and external painting and floor coating works for commercial, residential and public buildings—covering both new build and re-painting projects.',
     features: [
-      'Interior and exterior painting',
-      'Waterproofing membranes',
-      'Concrete sealing',
-      'Roof waterproofing',
-      'Foundation waterproofing',
-      'Decorative finishes'
+      'Interior & exterior painting',
+      'Floor coating applications',
+      'New build and re-painting',
+      'Commercial, residential & public projects'
     ],
-    image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: paintImg
   }
 ];
 
@@ -125,11 +124,26 @@ const processSteps = [
     description: 'We provide comprehensive documentation and training, along with ongoing support as needed.'
   }
 ];
+
+// Fallback image handler for broken/empty images
+const FALLBACK_IMG = mechImg
+const onImgError = (e) => {
+  if (e && e.target) {
+    e.target.src = FALLBACK_IMG
+  }
+}
 </script>
 
 <template>
   <!-- Hero Section -->
   <section class="relative py-20 md:py-32 bg-gradient-dark overflow-hidden">
+    <!-- Hero Background Image -->
+    <div class="absolute inset-0">
+      <div 
+        class="w-full h-full bg-center bg-cover opacity-20"
+        :style="{ backgroundImage: `url(${heroImg})` }"
+      ></div>
+    </div>
     <div class="absolute inset-0 opacity-10">
       <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <pattern id="blueprint" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -145,16 +159,20 @@ const processSteps = [
         <p class="text-xl text-gray-300 mb-8">
           Comprehensive engineering solutions that combine technical expertise, innovation, and attention to detail.
         </p>
+        <div class="flex flex-wrap gap-4">
+          <router-link to="/contact" class="btn-primary">Book Appointment</router-link>
+          <router-link to="/portfolio" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">View Portfolio</router-link>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Services Overview -->
-  <section class="py-16 md:py-24">
+  <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="section-title">Our Engineering Expertise</h2>
-        <p class="text-gray-600">
+        <h2 class="section-title text-white">Our Engineering Expertise</h2>
+        <p class="text-gray-300">
           At Brady Construction, we offer a comprehensive range of engineering services to support your construction and renovation projects. Our team of experienced engineers brings technical knowledge, innovative thinking, and practical problem-solving to every challenge.
         </p>
       </div>
@@ -169,14 +187,14 @@ const processSteps = [
           <div :class="[index % 2 === 1 ? 'lg:col-start-1' : '']">
             <div class="relative">
               <div class="absolute -top-4 -left-4 w-20 h-20 bg-brady-gold opacity-20 rounded-full"></div>
-              <img :src="service.image" :alt="service.title" class="rounded-lg shadow-xl w-full h-80 object-cover">
+              <img :src="service.image" :alt="service.title" class="rounded-lg shadow-xl w-full h-80 object-cover" @error="onImgError">
             </div>
           </div>
           
           <!-- Service Content -->
           <div>
-            <h3 class="text-2xl font-bold text-brady-charcoal mb-4">{{ service.title }}</h3>
-            <p class="text-gray-700 mb-6">{{ service.description }}</p>
+            <h3 class="text-2xl font-bold text-white mb-4">{{ service.title }}</h3>
+            <p class="text-gray-300 mb-6">{{ service.description }}</p>
             
             <h4 class="text-lg font-semibold text-brady-gold mb-3">Key Features:</h4>
             <ul class="space-y-2">
@@ -184,7 +202,7 @@ const processSteps = [
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brady-gold mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span class="text-gray-700">{{ feature }}</span>
+                <span class="text-gray-300">{{ feature }}</span>
               </li>
             </ul>
           </div>
@@ -194,18 +212,18 @@ const processSteps = [
   </section>
 
   <!-- Our Process -->
-  <section class="py-16 md:py-24 bg-gray-50">
+  <section class="py-16 md:py-24 bg-brady-dark text-white">
     <div class="container mx-auto px-4 md:px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="section-title">Our Engineering Process</h2>
-        <p class="text-gray-600">
+        <h2 class="section-title text-white">Our Engineering Process</h2>
+        <p class="text-gray-300">
           We follow a structured approach to ensure that every engineering project is delivered to the highest standards, on time and within budget.
         </p>
       </div>
 
       <div class="relative">
         <!-- Process Timeline (Desktop) -->
-        <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-300 -translate-y-1/2"></div>
+        <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-brady-gray-700 -translate-y-1/2"></div>
         
         <div class="grid grid-cols-1 md:grid-cols-7 gap-8">
           <div v-for="step in processSteps" :key="step.number" class="relative">
@@ -215,9 +233,9 @@ const processSteps = [
             </div>
             
             <!-- Step Content -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <h4 class="text-lg font-semibold text-brady-charcoal mb-2">{{ step.title }}</h4>
-              <p class="text-gray-600 text-sm">{{ step.description }}</p>
+            <div class="glass-card p-6 rounded-lg">
+              <h4 class="text-lg font-semibold text-white mb-2">{{ step.title }}</h4>
+              <p class="text-gray-300 text-sm">{{ step.description }}</p>
             </div>
           </div>
         </div>
@@ -226,12 +244,12 @@ const processSteps = [
   </section>
 
   <!-- Why Choose Us -->
-  <section class="py-16 md:py-24">
+  <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="section-title">Why Choose Our Engineering Services</h2>
-          <p class="text-gray-700 mb-6">
+          <h2 class="section-title text-white">Why Choose Our Engineering Services</h2>
+          <p class="text-gray-300 mb-6">
             Our engineering team brings a unique combination of technical expertise, creative problem-solving, and practical experience to every project. We're committed to delivering solutions that not only meet technical requirements but also enhance the overall success of your project.
           </p>
           
@@ -244,8 +262,8 @@ const processSteps = [
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-brady-charcoal mb-1">Technical Excellence</h4>
-                <p class="text-gray-600">Our engineers are highly qualified professionals with extensive experience in their respective fields.</p>
+                <h4 class="text-lg font-semibold text-white mb-1">Technical Excellence</h4>
+                <p class="text-gray-300">Our engineers are highly qualified professionals with extensive experience in their respective fields.</p>
               </div>
             </div>
             
@@ -257,8 +275,8 @@ const processSteps = [
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-brady-charcoal mb-1">Innovative Solutions</h4>
-                <p class="text-gray-600">We stay at the forefront of engineering technology and methodologies to deliver innovative solutions.</p>
+                <h4 class="text-lg font-semibold text-white mb-1">Innovative Solutions</h4>
+                <p class="text-gray-300">We stay at the forefront of engineering technology and methodologies to deliver innovative solutions.</p>
               </div>
             </div>
             
@@ -270,8 +288,8 @@ const processSteps = [
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-brady-charcoal mb-1">Collaborative Approach</h4>
-                <p class="text-gray-600">We work closely with architects, contractors, and other stakeholders to ensure seamless integration.</p>
+                <h4 class="text-lg font-semibold text-white mb-1">Collaborative Approach</h4>
+                <p class="text-gray-300">We work closely with architects, contractors, and other stakeholders to ensure seamless integration.</p>
               </div>
             </div>
             
@@ -283,8 +301,8 @@ const processSteps = [
                 </svg>
               </div>
               <div>
-                <h4 class="text-lg font-semibold text-brady-charcoal mb-1">Timely Delivery</h4>
-                <p class="text-gray-600">We understand the importance of timelines in construction projects and consistently deliver on schedule.</p>
+                <h4 class="text-lg font-semibold text-white mb-1">Timely Delivery</h4>
+                <p class="text-gray-300">We understand the importance of timelines in construction projects and consistently deliver on schedule.</p>
               </div>
             </div>
           </div>
@@ -293,12 +311,12 @@ const processSteps = [
         <div class="relative">
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-4">
-              <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Engineering Work" class="rounded-lg shadow-md w-full h-48 object-cover">
-              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Engineering Work" class="rounded-lg shadow-md w-full h-64 object-cover">
+              <img :src="mechImg" alt="Mechanical Work" class="rounded-lg shadow-md w-full h-48 object-cover" @error="onImgError">
+              <img :src="elecImg" alt="Electrical Work" class="rounded-lg shadow-md w-full h-64 object-cover" @error="onImgError">
             </div>
             <div class="space-y-4 mt-8">
-              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Engineering Work" class="rounded-lg shadow-md w-full h-64 object-cover">
-              <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Engineering Work" class="rounded-lg shadow-md w-full h-48 object-cover">
+              <img :src="sysIntImg" alt="Systems Integration" class="rounded-lg shadow-md w-full h-64 object-cover" @error="onImgError">
+              <img :src="paintImg" alt="Painting & Waterproofing" class="rounded-lg shadow-md w-full h-48 object-cover" @error="onImgError">
             </div>
           </div>
           <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brady-beige opacity-60 rounded-full"></div>

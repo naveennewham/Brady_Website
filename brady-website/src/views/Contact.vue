@@ -77,6 +77,13 @@ const submitForm = async () => {
 <template>
   <!-- Hero Section -->
   <section class="relative py-20 md:py-32 bg-gradient-dark overflow-hidden">
+    <!-- Hero Background Image -->
+    <div class="absolute inset-0">
+      <div 
+        class="w-full h-full bg-center bg-cover opacity-20"
+        style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=60');"
+      ></div>
+    </div>
     <div class="absolute inset-0 opacity-10">
       <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <pattern id="contact-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -93,18 +100,22 @@ const submitForm = async () => {
         <p class="text-xl text-gray-300 mb-8">
           Get in touch with our team to discuss your project or request more information about our services.
         </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact-form" class="btn-primary">Book Appointment</a>
+          <router-link to="/portfolio" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">View Portfolio</router-link>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact Information & Form -->
-  <section class="py-16 md:py-24">
+  <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div>
-          <h2 class="section-title">Get In Touch</h2>
-          <p class="text-gray-700 mb-8">
+          <h2 class="section-title text-white">Get In Touch</h2>
+          <p class="text-gray-300 mb-8">
             Whether you're interested in our engineering services, interior design expertise, or have questions about an existing project, we're here to help. Contact us using the information below or fill out the form to send us a message.
           </p>
           
@@ -118,8 +129,8 @@ const submitForm = async () => {
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-brady-charcoal mb-1">Our Location</h3>
-                <p class="text-gray-700">
+                <h3 class="text-lg font-semibold text-white mb-1">Our Location</h3>
+                <p class="text-gray-300">
                   123 Construction Avenue<br>
                   Building City, BC 12345<br>
                   United States
@@ -135,8 +146,8 @@ const submitForm = async () => {
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-brady-charcoal mb-1">Email Us</h3>
-                <p class="text-gray-700">
+                <h3 class="text-lg font-semibold text-white mb-1">Email Us</h3>
+                <p class="text-gray-300">
                   General Inquiries: <a href="mailto:info@bradyconstruction.com" class="text-brady-gold hover:underline">info@bradyconstruction.com</a><br>
                   Support: <a href="mailto:support@bradyconstruction.com" class="text-brady-gold hover:underline">support@bradyconstruction.com</a>
                 </p>
@@ -151,8 +162,8 @@ const submitForm = async () => {
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-brady-charcoal mb-1">Call Us</h3>
-                <p class="text-gray-700">
+                <h3 class="text-lg font-semibold text-white mb-1">Call Us</h3>
+                <p class="text-gray-300">
                   Main Office: <a href="tel:+15551234567" class="text-brady-gold hover:underline">+1 (555) 123-4567</a><br>
                   Customer Service: <a href="tel:+15559876543" class="text-brady-gold hover:underline">+1 (555) 987-6543</a>
                 </p>
@@ -167,8 +178,8 @@ const submitForm = async () => {
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-brady-charcoal mb-1">Business Hours</h3>
-                <p class="text-gray-700">
+                <h3 class="text-lg font-semibold text-white mb-1">Business Hours</h3>
+                <p class="text-gray-300">
                   Monday - Friday: 8:00 AM - 6:00 PM<br>
                   Saturday: 9:00 AM - 1:00 PM<br>
                   Sunday: Closed
@@ -179,9 +190,9 @@ const submitForm = async () => {
           
           <!-- Social Media -->
           <div class="mt-8">
-            <h3 class="text-lg font-semibold text-brady-charcoal mb-4">Connect With Us</h3>
+            <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
             <div class="flex space-x-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+              <a href="#" class="w-10 h-10 rounded-full bg-brady-gray-800 border border-brady-gray-700 flex items-center justify-center text-white hover:bg-brady-gold hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
                 </svg>
@@ -206,8 +217,8 @@ const submitForm = async () => {
         </div>
         
         <!-- Contact Form -->
-        <div class="bg-white p-8 rounded-lg shadow-lg">
-          <h2 class="text-2xl font-bold text-brady-charcoal mb-6">Send Us a Message</h2>
+        <div id="contact-form" class="glass-card p-8 rounded-lg">
+          <h2 class="text-2xl font-bold text-white mb-6">Send Us a Message</h2>
           
           <!-- Success Message -->
           <div v-if="submitSuccess" class="mb-6 p-4 bg-green-100 text-green-700 rounded-md">
@@ -233,12 +244,12 @@ const submitForm = async () => {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Name -->
               <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name *</label>
                 <input 
                   type="text" 
                   id="name" 
                   v-model="formData.name" 
-                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold"
+                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
                   :class="{'border-red-500': errors.name}"
                 >
                 <p v-if="errors.name" class="mt-1 text-sm text-red-600">{{ errors.name }}</p>
@@ -246,12 +257,12 @@ const submitForm = async () => {
               
               <!-- Email -->
               <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email *</label>
                 <input 
                   type="email" 
                   id="email" 
                   v-model="formData.email" 
-                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold"
+                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
                   :class="{'border-red-500': errors.email}"
                 >
                 <p v-if="errors.email" class="mt-1 text-sm text-red-600">{{ errors.email }}</p>
@@ -259,23 +270,23 @@ const submitForm = async () => {
               
               <!-- Phone -->
               <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Phone</label>
                 <input 
                   type="tel" 
                   id="phone" 
                   v-model="formData.phone" 
-                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold"
+                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
                 >
               </div>
               
               <!-- Subject -->
               <div>
-                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject *</label>
+                <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Subject *</label>
                 <input 
                   type="text" 
                   id="subject" 
                   v-model="formData.subject" 
-                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold"
+                  class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
                   :class="{'border-red-500': errors.subject}"
                 >
                 <p v-if="errors.subject" class="mt-1 text-sm text-red-600">{{ errors.subject }}</p>
@@ -284,12 +295,12 @@ const submitForm = async () => {
             
             <!-- Message -->
             <div class="mt-6">
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message *</label>
               <textarea 
                 id="message" 
                 v-model="formData.message" 
                 rows="5" 
-                class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold"
+                class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
                 :class="{'border-red-500': errors.message}"
               ></textarea>
               <p v-if="errors.message" class="mt-1 text-sm text-red-600">{{ errors.message }}</p>
@@ -319,17 +330,17 @@ const submitForm = async () => {
   </section>
 
   <!-- Map Section -->
-  <section class="py-16 md:py-24 bg-gray-50">
+  <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="section-title">Find Us</h2>
-        <p class="text-gray-600">
+        <h2 class="section-title text-white">Find Us</h2>
+        <p class="text-gray-300">
           Visit our office to meet our team and discuss your project in person.
         </p>
       </div>
       
       <!-- Google Maps Embed -->
-      <div class="rounded-lg overflow-hidden shadow-lg h-96">
+      <div class="glass-card rounded-lg overflow-hidden h-96">
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059445135!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sca!4v1634567890123!5m2!1sen!2sca" 
           width="100%" 
@@ -346,7 +357,7 @@ const submitForm = async () => {
   <!-- Book Appointment CTA -->
   <section class="py-16 md:py-24 bg-brady-charcoal">
     <div class="container mx-auto px-4 md:px-6">
-      <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+      <div class="max-w-4xl mx-auto glass-card overflow-hidden">
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Image Side -->
           <div class="relative h-64 md:h-auto">
@@ -355,8 +366,8 @@ const submitForm = async () => {
           
           <!-- Content Side -->
           <div class="p-8 md:p-12">
-            <h3 class="text-2xl font-bold text-brady-charcoal mb-4">Schedule a Consultation</h3>
-            <p class="text-gray-600 mb-6">
+            <h3 class="text-2xl font-bold text-white mb-4">Schedule a Consultation</h3>
+            <p class="text-gray-300 mb-6">
               Book a consultation with our team to discuss your project requirements and explore how we can help bring your vision to life.
             </p>
             <div class="space-y-4">

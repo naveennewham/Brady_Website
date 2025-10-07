@@ -31,6 +31,18 @@ const routes = [
     meta: { title: 'Brady Construction - Portfolio' }
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+    meta: { title: 'Admin - Portfolio', requiresAuth: true }
+  },
+  {
+    path: '/case-studies',
+    name: 'CaseStudies',
+    component: () => import('../views/CaseStudies.vue'),
+    meta: { title: 'Brady Construction - Case Studies' }
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact.vue'),
