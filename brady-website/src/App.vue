@@ -87,7 +87,7 @@ const toggleMenu = () => {
       </nav>
 
       <!-- Mobile Navigation -->
-      <div v-if="isMenuOpen" class="md:hidden mt-4 pb-4 bg-brady-gold/10 text-white border border-brady-gold/30 backdrop-blur-md shadow-xl rounded-md px-4">
+      <div v-if="isMenuOpen" class="md:hidden mt-4 pb-4 bg-brady-darker/95 text-white backdrop-blur border border-brady-gray-700 shadow-xl rounded-md px-4">
         <div class="flex flex-col space-y-4">
           <router-link @click="isMenuOpen = false" to="/" class="text-white hover:text-brady-gold font-medium transition-colors">Home</router-link>
           <router-link @click="isMenuOpen = false" to="/about" class="text-white hover:text-brady-gold font-medium transition-colors">About</router-link>
