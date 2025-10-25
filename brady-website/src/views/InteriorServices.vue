@@ -302,7 +302,7 @@ const portfolioItems = [
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Image Side -->
           <div class="relative h-64 md:h-auto">
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Interior Design" class="absolute inset-0 w-full h-full object-cover">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Interior Design" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" @error="onImgError">
           </div>
           
           <!-- Content Side -->

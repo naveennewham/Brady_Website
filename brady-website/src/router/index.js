@@ -40,7 +40,7 @@ const routes = [
     path: '/case-studies',
     name: 'CaseStudies',
     component: () => import('../views/CaseStudies.vue'),
-    meta: { title: 'Brady Construction - Case Studies' }
+    meta: { title: 'Brady Construction - Blob' }
   },
   {
     path: '/contact',

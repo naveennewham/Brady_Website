@@ -1,16 +1,25 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase';
+import localProjects from '../data/projects_client.json';
 
 // Filter state
 const activeFilter = ref('all');
 const isLoading = ref(true);
+// Segment and year filters
+const selectedSegment = ref('all'); // 'all' | 'current' | 'past'
+const selectedYear = ref('all'); // 'all' | numeric string like '2024'
 
 // Project data
 const projects = ref([]);
 const error = ref(null);
+
+// (Removed unused image helpers)
+
+// Env flag to force local loading
+const useLocal = import.meta.env.VITE_USE_LOCAL_PROJECTS === 'true'
 
 // Placeholder projects (will be replaced with Firebase data)
 const placeholderProjects = [
@@ -105,25 +114,125 @@ const selectedProject = ref(null);
 const isModalOpen = ref(false);
 const currentImageIndex = ref(0);
 
+// Modal actions
+const openProjectModal = (project) => {
+  selectedProject.value = project
+  currentImageIndex.value = 0
+  isModalOpen.value = true
+  if (typeof document !== 'undefined') {
+    document.body.classList.add('overflow-hidden')
+  }
+}
+
+const closeProjectModal = () => {
+  isModalOpen.value = false
+  if (typeof document !== 'undefined') {
+    document.body.classList.remove('overflow-hidden')
+  }
+  setTimeout(() => { selectedProject.value = null }, 200)
+}
+
+const nextImage = () => {
+  if (!selectedProject.value) return
+  const imgs = Array.isArray(selectedProject.value.images) ? selectedProject.value.images : []
+  if (!imgs.length) return
+  currentImageIndex.value = (currentImageIndex.value + 1) % imgs.length
+}
+
+const prevImage = () => {
+  if (!selectedProject.value) return
+  const imgs = Array.isArray(selectedProject.value.images) ? selectedProject.value.images : []
+  if (!imgs.length) return
+  currentImageIndex.value = (currentImageIndex.value - 1 + imgs.length) % imgs.length
+}
+
+const handleKeyDown = (e) => {
+  if (!isModalOpen.value) return
+  if (e.key === 'Escape') closeProjectModal()
+  if (e.key === 'ArrowRight') nextImage()
+  if (e.key === 'ArrowLeft') prevImage()
+}
+
+onMounted(() => {
+  // Ensure data loads and keyboard navigation binds
+  try { fetchProjects() } catch (e) {}
+  if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', handleKeyDown)
+  }
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', handleKeyDown)
+  }
+})
+
 // Filter projects based on active filter
 const filteredProjects = computed(() => {
-  if (activeFilter.value === 'all') {
-    return projects.value;
+  // start from all
+  let list = projects.value.slice();
+  // category filter (skip special maintenance template)
+  if (activeFilter.value !== 'all' && activeFilter.value !== 'maintenance') {
+    list = list.filter(p => p.category === activeFilter.value);
   }
-  return projects.value.filter(project => project.category === activeFilter.value);
+  // segment filter
+  if (selectedSegment.value === 'current') {
+    list = list.filter(p => String(p.year || '').includes('Present'));
+  } else if (selectedSegment.value === 'past') {
+    list = list.filter(p => !String(p.year || '').includes('Present'));
+  }
+  // year filter
+  if (selectedYear.value !== 'all') {
+    list = list.filter(p => String(p.year || '').includes(selectedYear.value));
+  }
+  return list;
 });
+
+// Maintenance view data (all loaded projects are client-provided now)
+const maintenanceCurrent = computed(() =>
+  projects.value.filter(p => String(p.year || '').includes('Present'))
+)
+
+const maintenancePast = computed(() =>
+  projects.value.filter(p => !String(p.year || '').includes('Present'))
+)
+
+// Available years for dropdown (extract the starting year)
+const availableYears = computed(() => {
+  const years = new Set();
+  for (const p of projects.value) {
+    const match = String(p.year || '').match(/\b(20\d{2}|19\d{2})/);
+    if (match) years.add(match[1]);
+  }
+  return Array.from(years).sort((a, b) => Number(b) - Number(a));
+})
+
+// Maintenance filtered lists by selectedYear (if not 'all')
+const maintenanceCurrentFiltered = computed(() => {
+  let list = maintenanceCurrent.value
+  if (selectedYear.value !== 'all') {
+    list = list.filter(p => String(p.year || '').includes(selectedYear.value))
+  }
+  return list
+})
+
+const maintenancePastFiltered = computed(() => {
+  let list = maintenancePast.value
+  if (selectedYear.value !== 'all') {
+    list = list.filter(p => String(p.year || '').includes(selectedYear.value))
+  }
+  return list
+})
 
 // Fetch projects from Firebase
 const fetchProjects = async () => {
   try {
     isLoading.value = true;
-    
-    // In a real implementation, this would fetch data from Firebase
-    // For now, we'll use the placeholder data
-    setTimeout(() => {
-      projects.value = placeholderProjects;
-      isLoading.value = false;
-    }, 1000);
+    // If flag is set, load from local JSON/assets and return
+    if (useLocal) {
+      loadFromLocal();
+      return;
+    }
 
     // Example Firebase implementation (commented out for now)
     /*
@@ -155,69 +264,55 @@ const fetchProjects = async () => {
     
     projects.value = projectsList;
     */
-    
+    // Temporary: until Firebase is fully configured, use local as default
+    loadFromLocal();
   } catch (err) {
     console.error('Error fetching projects:', err);
-    error.value = 'Failed to load projects. Please try again later.';
+    // On any error, fall back to local
+    loadFromLocal();
   } finally {
     isLoading.value = false;
   }
 };
+
+// Helper: load local JSON and resolve images from src/assets
+function loadFromLocal() {
+  try {
+    const resolved = (localProjects || []).map(p => {
+      const images = Array.isArray(p.imagePaths)
+        ? p.imagePaths.map(rel => new URL(`../assets/${rel}`, import.meta.url).href)
+        : Array.isArray(p.images)
+          ? p.images
+          : []
+      return {
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        subcategory: p.subcategory,
+        description: p.description,
+        client: p.client,
+        location: p.location,
+        year: p.year,
+        images
+      }
+    })
+    projects.value = resolved
+    error.value = null
+  } catch (e) {
+    console.error('Failed to load local projects:', e)
+    projects.value = []
+    error.value = 'Failed to load local projects.'
+  } finally {
+    isLoading.value = false
+  }
+}
 
 // Set active filter
 const setFilter = (filter) => {
   activeFilter.value = filter;
 };
 
-// Open project modal
-const openProjectModal = (project) => {
-  selectedProject.value = project;
-  currentImageIndex.value = 0;
-  isModalOpen.value = true;
-  document.body.classList.add('overflow-hidden');
-};
-
-// Close project modal
-const closeProjectModal = () => {
-  isModalOpen.value = false;
-  document.body.classList.remove('overflow-hidden');
-  setTimeout(() => {
-    selectedProject.value = null;
-  }, 300);
-};
-
-// Navigate to next image in modal
-const nextImage = () => {
-  if (selectedProject.value) {
-    currentImageIndex.value = (currentImageIndex.value + 1) % selectedProject.value.images.length;
-  }
-};
-
-// Navigate to previous image in modal
-const prevImage = () => {
-  if (selectedProject.value) {
-    currentImageIndex.value = (currentImageIndex.value - 1 + selectedProject.value.images.length) % selectedProject.value.images.length;
-  }
-};
-
-// Handle keyboard navigation in modal
-const handleKeyDown = (event) => {
-  if (!isModalOpen.value) return;
-  
-  if (event.key === 'Escape') {
-    closeProjectModal();
-  } else if (event.key === 'ArrowRight') {
-    nextImage();
-  } else if (event.key === 'ArrowLeft') {
-    prevImage();
-  }
-};
-
-// Lifecycle hooks
-onMounted(() => {
-  fetchProjects();
-  window.addEventListener('keydown', handleKeyDown);
-});
+// (Removed duplicate modal handlers and lifecycle block below to avoid redeclaration)
 
 // Fallback image handler for broken/empty images
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=60'
@@ -258,6 +353,7 @@ const onImgError = (e) => {
           <router-link to="/contact" class="btn-primary">Book Appointment</router-link>
           <a href="#portfolio-grid" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">Browse Projects</a>
         </div>
+
       </div>
     </div>
   </section>
@@ -266,34 +362,27 @@ const onImgError = (e) => {
   <section class="py-16 md:py-24 bg-brady-dark text-gray-300">
     <div class="container mx-auto px-4 md:px-6">
       <!-- Filter Tabs -->
-      <div class="flex flex-wrap justify-center mb-12">
-        <button 
-          @click="setFilter('all')" 
-          :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
-                  activeFilter === 'all' 
-                    ? 'bg-brady-gold text-white' 
-                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
-        >
-          All Projects
-        </button>
-        <button 
-          @click="setFilter('engineering')" 
-          :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
-                  activeFilter === 'engineering' 
-                    ? 'bg-brady-gold text-white' 
-                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
-        >
-          Engineering
-        </button>
-        <button 
-          @click="setFilter('interior')" 
-          :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', 
-                  activeFilter === 'interior' 
-                    ? 'bg-brady-gold text-white' 
-                    : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']"
-        >
-          Interior Design
-        </button>
+      <div class="flex flex-wrap justify-center mb-4">
+        <button @click="setFilter('all')" :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', activeFilter === 'all' ? 'bg-brady-gold text-white' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">All Projects</button>
+        <button @click="setFilter('engineering')" :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', activeFilter === 'engineering' ? 'bg-brady-gold text-white' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Engineering</button>
+        <button @click="setFilter('interior')" :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', activeFilter === 'interior' ? 'bg-brady-gold text-white' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Interior Design</button>
+        <button @click="setFilter('maintenance')" :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', activeFilter === 'maintenance' ? 'bg-brady-gold text-white' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Maintenance</button>
+      </div>
+
+      <!-- Segment + Year controls (hidden for maintenance view) -->
+      <div v-if="activeFilter !== 'maintenance'" class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="inline-flex rounded-md overflow-hidden border border-brady-gray-700">
+          <button @click="selectedSegment = 'all'" :class="['px-4 py-2 text-sm', selectedSegment === 'all' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">All</button>
+          <button @click="selectedSegment = 'current'" :class="['px-4 py-2 text-sm', selectedSegment === 'current' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Current</button>
+          <button @click="selectedSegment = 'past'" :class="['px-4 py-2 text-sm', selectedSegment === 'past' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Past</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-400">Year</label>
+          <select v-model="selectedYear" class="bg-brady-gray-800 text-gray-200 border border-brady-gray-700 px-3 py-2 text-sm">
+            <option value="all">All</option>
+            <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
+          </select>
+        </div>
       </div>
 
       <!-- Loading State -->
@@ -303,181 +392,160 @@ const onImgError = (e) => {
 
       <!-- Error State -->
       <div v-else-if="error" class="text-center py-20">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <p class="text-lg text-gray-300">{{ error }}</p>
         <button @click="fetchProjects" class="mt-4 btn-primary">Try Again</button>
       </div>
 
-      <!-- Projects Grid -->
-      <div id="portfolio-grid" v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div 
-          v-for="project in filteredProjects" 
-          :key="project.id" 
-          class="group cursor-pointer"
-          @click="openProjectModal(project)"
-        >
-          <div class="relative overflow-hidden rounded-lg mb-4">
-            <img 
-              :src="project.images[0]" 
-              :alt="project.title" 
-              class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              @error="onImgError"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-brady-charcoal to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
-              <span class="text-white font-medium px-4 py-2 rounded-md border border-white">View Project</span>
+      <!-- Maintenance View -->
+      <div v-else-if="activeFilter === 'maintenance'">
+        <!-- Controls for Maintenance -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div class="inline-flex rounded-md overflow-hidden border border-brady-gray-700">
+            <button @click="selectedSegment = 'all'" :class="['px-4 py-2 text-sm', selectedSegment === 'all' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">All</button>
+            <button @click="selectedSegment = 'current'" :class="['px-4 py-2 text-sm', selectedSegment === 'current' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Current</button>
+            <button @click="selectedSegment = 'past'" :class="['px-4 py-2 text-sm', selectedSegment === 'past' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Past</button>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-400">Year</label>
+            <select v-model="selectedYear" class="bg-brady-gray-800 text-gray-200 border border-brady-gray-700 px-3 py-2 text-sm">
+              <option value="all">All</option>
+              <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-12">
+          <!-- Current -->
+          <div v-if="selectedSegment !== 'past' && maintenanceCurrentFiltered.length">
+            <div class="hidden"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              <div v-for="project in maintenanceCurrentFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
+                <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
+                  <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-20"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+                  <!-- Client logo / initials at top-left -->
+                  <div class="absolute top-5 left-5 z-10">
+                    <div class="w-12 h-12 rounded-md border border-brady-gold/70 bg-brady-dark/60 overflow-hidden flex items-center justify-center">
+                      <img v-if="project.clientLogoUrl" :src="project.clientLogoUrl" :alt="project.client + ' logo'" class="w-full h-full object-contain p-1" @error="$event.target.style.display='none'" />
+                      <span v-else class="text-brady-gold text-sm font-semibold px-1">{{ (project.client || ' ').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase() }}</span>
+                    </div>
+                  </div>
+                  <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
+                  <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
+                  <!-- Icon box moved to top-right (inside frame) -->
+                  <div class="absolute top-5 right-5 w-12 h-12 rounded-md border border-brady-gold text-brady-gold bg-brady-dark/40 flex items-center justify-center">
+                    <svg v-if="/Solar/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 4.95l-1.414-1.414M7.464 7.464L6.05 6.05m11.314 0l-1.414 1.414M7.464 16.536L6.05 17.95M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg v-else-if="/Security/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <svg v-else-if="/(EV|Charger|Electrical)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <svg v-else-if="/(Maintenance|M&E|Network|Communication|Lift|Plumbing)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V10"/></svg>
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  </div>
+                  
+                  <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
+                    <div class="flex items-start justify-between gap-4 w-full">
+                      <div class="flex items-start gap-0 min-w-0">
+                        <div class="min-w-0">
+                          <div class="text-[11px] uppercase tracking-[0.15em] text-brady-gold font-semibold">{{ project.subcategory }}</div>
+                          <h3 class="mt-1 text-white font-bold text-2xl leading-snug line-clamp-2">
+                            <span class="bg-white/15 px-1.5 rounded-sm">{{ project.title }}</span>
+                          </h3>
+                          <p class="mt-2 text-base text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
+                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                        </div>
+                      </div>
+                      <div class="shrink-0 self-center mr-1">
+                        <button @click.stop="openProjectModal(project)" aria-label="View Project" class="group w-10 h-10 rounded-full border border-brady-gold text-brady-gold flex items-center justify-center hover:bg-brady-gold hover:text-brady-darker transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <span class="text-brady-gold font-medium">{{ project.subcategory }}</span>
-          <h3 class="text-xl font-bold text-white">{{ project.title }}</h3>
-          <p class="text-gray-300 line-clamp-2">{{ project.description }}</p>
+
+          <!-- Past -->
+          <div v-if="selectedSegment !== 'current' && maintenancePastFiltered.length">
+            <!-- Title removed per request -->
+            <div class="hidden"></div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div v-for="project in maintenancePastFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
+                <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#0B0B0C] via-[#121214] to-[#1A1A1D] border-b-2 border-brady-gold">
+                  <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-10"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+                  <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
+                  <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
+                  <!-- Icon box in top-right for past, consistent with current/default -->
+                  <div class="absolute top-5 right-5 w-12 h-12 rounded-md border border-brady-gold text-brady-gold bg-brady-dark/40 flex items-center justify-center">
+                    <svg v-if="/Solar/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 4.95l-1.414-1.414M7.464 7.464L6.05 6.05m11.314 0l-1.414 1.414M7.464 16.536L6.05 17.95M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg v-else-if="/Security/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <svg v-else-if="/(EV|Charger|Electrical)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <svg v-else-if="/(Maintenance|M&E|Network|Communication|Lift|Plumbing)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V10"/></svg>
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  </div>
+                  <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent">
+                    <div class="flex items-start justify-between gap-4 w-full">
+                      <div class="flex items-start gap-0 min-w-0">
+                        <div class="min-w-0">
+                          <div class="text-xs inline-flex px-2 py-0.5 bg-brady-gold/20 text-brady-gold tracking-wide">{{ project.subcategory }}</div>
+                          <h3 class="mt-1 text-brady-gold font-semibold text-lg leading-snug tracking-wide uppercase line-clamp-2">{{ project.title }}</h3>
+                          <p class="mt-1 text-sm text-gray-300 line-clamp-2" v-if="project.description">{{ project.description }}</p>
+                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                        </div>
+                      </div>
+                      <div class="shrink-0 self-center mr-1">
+                        <button @click.stop="openProjectModal(project)" aria-label="View Project" class="group w-10 h-10 rounded-full border border-brady-gold text-brady-gold flex items-center justify-center hover:bg-brady-gold hover:text-brady-darker transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Empty State -->
-      <div v-if="!isLoading && !error && filteredProjects.length === 0" class="text-center py-20">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-        </svg>
-        <p class="text-lg text-gray-300">No projects found in this category.</p>
+      <!-- Default Grid -->
+      <div v-else id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-for="project in filteredProjects" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
+          <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
+            <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-10"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+            <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
+            <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 rounded-md border border-brady-gold text-brady-gold bg-brady-dark/40 flex items-center justify-center">
+              <svg v-if="/Solar/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 4.95l-1.414-1.414M7.464 7.464L6.05 6.05m11.314 0l-1.414 1.414M7.464 16.536L6.05 17.95M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              <svg v-else-if="/Security/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg v-else-if="/(EV|Charger|Electrical)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <svg v-else-if="/(Maintenance|M&E|Network|Communication|Lift|Plumbing)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V10"/></svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
+              <div class="flex items-start justify-between gap-4 w-full">
+                <div class="flex items-start gap-0 min-w-0">
+                  <div class="min-w-0">
+                    <div class="text-[11px] uppercase tracking-[0.15em] text-brady-gold font-semibold">{{ project.subcategory }}</div>
+                    <h3 class="mt-1 text-white font-bold text-2xl leading-snug line-clamp-2">
+                      <span class="bg-white/15 px-1.5 rounded-sm">{{ project.title }}</span>
+                    </h3>
+                    <p class="mt-2 text-base text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
+                    <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                  </div>
+                </div>
+                <div class="shrink-0 self-center mr-1">
+                  <button @click.stop="openProjectModal(project)" aria-label="View Project" class="group w-10 h-10 rounded-full border border-brady-gold text-brady-gold flex items-center justify-center hover:bg-brady-gold hover:text-brady-darker transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
-
-  <!-- Project Modal -->
-  <div 
-    v-if="isModalOpen" 
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brady-charcoal bg-opacity-90"
-    @click.self="closeProjectModal"
-  >
-    <div 
-      class="glass-card rounded-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto"
-      :class="{ 'animate-fade-in': isModalOpen }"
-    >
-      <!-- Modal Header -->
-      <div class="flex justify-between items-center p-6 border-b border-brady-gray-700">
-        <h3 class="text-2xl font-bold text-white">{{ selectedProject?.title }}</h3>
-        <button @click="closeProjectModal" class="text-gray-300 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Modal Content -->
-      <div class="p-6 text-gray-300">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Image Gallery -->
-          <div class="relative">
-            <div class="relative overflow-hidden rounded-lg">
-              <img 
-                v-if="selectedProject" 
-                :src="selectedProject.images[currentImageIndex]" 
-                :alt="selectedProject.title" 
-                class="w-full h-auto"
-                @error="onImgError"
-              >
-
-              <!-- Navigation Arrows -->
-              <button 
-                v-if="selectedProject && selectedProject.images.length > 1"
-                @click.stop="prevImage" 
-                class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-brady-gray-800 bg-opacity-80 text-white hover:bg-brady-gold hover:text-white transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button 
-                v-if="selectedProject && selectedProject.images.length > 1"
-                @click.stop="nextImage" 
-                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-brady-gray-800 bg-opacity-80 text-white hover:bg-brady-gold hover:text-white transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-
-            <!-- Thumbnails -->
-            <div v-if="selectedProject && selectedProject.images.length > 1" class="flex mt-4 space-x-2 overflow-x-auto">
-              <button 
-                v-for="(image, index) in selectedProject.images" 
-                :key="index"
-                @click.stop="currentImageIndex = index"
-                :class="['w-16 h-16 rounded-md overflow-hidden flex-shrink-0 border-2', 
-                        currentImageIndex === index ? 'border-brady-gold' : 'border-transparent']"
-              >
-                <img :src="image" :alt="`Thumbnail ${index + 1}`" class="w-full h-full object-cover" @error="onImgError">
-              </button>
-            </div>
-          </div>
-
-          <!-- Project Details -->
-          <div>
-            <div class="mb-6">
-              <h4 class="text-lg font-semibold text-brady-gold mb-2">Project Details</h4>
-              <p class="text-gray-300 mb-4">{{ selectedProject?.description }}</p>
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                <div>
-                  <h5 class="text-sm font-medium text-gray-400">CLIENT</h5>
-                  <p class="text-white">{{ selectedProject?.client }}</p>
-                </div>
-                <div>
-                  <h5 class="text-sm font-medium text-gray-400">LOCATION</h5>
-                  <p class="text-white">{{ selectedProject?.location }}</p>
-                </div>
-                <div>
-                  <h5 class="text-sm font-medium text-gray-400">YEAR</h5>
-                  <p class="text-white">{{ selectedProject?.year }}</p>
-                </div>
-                <div>
-                  <h5 class="text-sm font-medium text-gray-400">CATEGORY</h5>
-                  <p class="text-white">{{ selectedProject?.subcategory }}</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-8">
-              <h4 class="text-lg font-semibold text-brady-gold mb-4">Share This Project</h4>
-              <div class="flex space-x-4">
-                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
-                  </svg>
-                </a>
-                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
-                  </svg>
-                </a>
-                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
-                  </svg>
-                </a>
-                <a href="#" class="p-2 rounded-full bg-brady-gray-800 border border-brady-gray-700 text-white hover:bg-brady-gold hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="p-6 border-t border-brady-gray-700">
-        <div class="flex justify-between">
-          <router-link to="/contact" class="btn-primary">Contact Us About This Project</router-link>
-          <button @click="closeProjectModal" class="btn-outline">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped>

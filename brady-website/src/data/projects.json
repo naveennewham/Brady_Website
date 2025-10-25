@@ -1,0 +1,436 @@
+[
+  {
+    "id": "l1",
+    "title": "Olympus Apartment",
+    "category": "engineering",
+    "subcategory": "Mechanical Engineering",
+    "description": "HVAC and plumbing design for a premium apartment block.",
+    "client": "Naveen",
+    "location": "Chennai",
+    "year": "2025",
+    "imagePaths": [
+      "eng services/Mechanical.jpg",
+      "eng services/mech.jpg"
+    ]
+  },
+  {
+    "id": "l2",
+    "title": "Retail Center Lighting",
+    "category": "engineering",
+    "subcategory": "Electrical Engineering",
+    "description": "Lighting and power distribution for a modern retail complex.",
+    "client": "Retail Ventures",
+    "location": "Bengaluru",
+    "year": "2024",
+    "imagePaths": [
+      "eng services/Electrical.jpg",
+      "eng services/system integration.jpg"
+    ]
+  },
+  {
+    "id": "l3",
+    "title": "Interior Makeover",
+    "category": "interior",
+    "subcategory": "Residential",
+    "description": "Contemporary interior redesign with custom finishes.",
+    "client": "Private Client",
+    "location": "Hyderabad",
+    "year": "2023",
+    "imagePaths": [
+      "hero_baner.png",
+      "eng services/painting.jpg"
+    ]
+  }
+  ,
+  {
+    "id": "l4",
+    "title": "Corporate Lobby Interior",
+    "category": "interior",
+    "subcategory": "Commercial",
+    "description": "Premium lobby experience with modern materials and warm lighting.",
+    "client": "Brady HQ",
+    "location": "Chennai",
+    "year": "2024",
+    "imagePaths": [
+      "hero_baner.png",
+      "eng services/painting.jpg"
+    ]
+  },
+  {
+    "id": "l5",
+    "title": "Construction Services – Plant Expansion",
+    "category": "engineering",
+    "subcategory": "Construction Services",
+    "description": "Civil and structural works for industrial plant capacity expansion.",
+    "client": "InduWorks Pvt Ltd",
+    "location": "Coimbatore",
+    "year": "2024",
+    "imagePaths": [
+      "eng services/constructionservice.jpg",
+      "eng services/welding.jpg"
+    ]
+  },
+  {
+    "id": "l6",
+    "title": "System Integration Upgrade",
+    "category": "engineering",
+    "subcategory": "Electronics & Communication",
+    "description": "AV, security, and IoT systems integration across a corporate campus.",
+    "client": "TechSphere",
+    "location": "Bengaluru",
+    "year": "2025",
+    "imagePaths": [
+      "eng services/system integration.jpg",
+      "eng services/electionic and communication.jpg"
+    ]
+  },
+  {
+    "id": "l7",
+    "title": "Mechanical Plant Room",
+    "category": "engineering",
+    "subcategory": "Mechanical Engineering",
+    "description": "High‑efficiency chillers and optimized piping layout for reduced losses.",
+    "client": "GreenBuild",
+    "location": "Pune",
+    "year": "2023",
+    "imagePaths": [
+      "eng services/Mechanical.jpg",
+      "eng services/mech.jpg"
+    ]
+  },
+  {
+    "id": "l8",
+    "title": "Boutique Residence Interiors",
+    "category": "interior",
+    "subcategory": "Residential",
+    "description": "Warm wood textures and soft lighting for a cozy apartment experience.",
+    "client": "Private Client",
+    "location": "Kochi",
+    "year": "2024",
+    "imagePaths": [
+      "hero_baner.png",
+      "eng services/painting.jpg"
+    ]
+  },
+  {
+    "id": "l9",
+    "title": "Factory Electrical Retrofit",
+    "category": "engineering",
+    "subcategory": "Electrical Engineering",
+    "description": "Power distribution upgrade with energy monitoring and safety systems.",
+    "client": "NeoManufacture",
+    "location": "Sriperumbudur",
+    "year": "2025",
+    "imagePaths": [
+      "eng services/Electrical.jpg",
+      "eng services/system integration.jpg"
+    ]
+  },
+  {
+    "id": "l10",
+    "title": "Showroom Interior Fit‑Out",
+    "category": "interior",
+    "subcategory": "Commercial",
+    "description": "Minimal showroom concept focusing on products with accent lighting.",
+    "client": "StyleHaus",
+    "location": "Madurai",
+    "year": "2024",
+    "imagePaths": [
+      "hero_baner.png",
+      "eng services/painting.jpg"
+    ]
+  },
+  {
+    "id": "l11",
+    "title": "Welding Bay Modernization",
+    "category": "engineering",
+    "subcategory": "Construction Services",
+    "description": "New welding bays with improved ventilation and safety compliance.",
+    "client": "MetalCraft",
+    "location": "Hosur",
+    "year": "2023",
+    "imagePaths": [
+      "eng services/welding.jpg",
+      "eng services/constructionservice.jpg"
+    ]
+  },
+  {
+    "id": "l12",
+    "title": "Campus Network & AV",
+    "category": "engineering",
+    "subcategory": "Electronics & Communication",
+    "description": "End‑to‑end campus network backbone with integrated AV for auditoriums.",
+    "client": "EduTech University",
+    "location": "Trichy",
+    "year": "2025",
+    "imagePaths": [
+      "eng services/electionic and communication.jpg",
+      "eng services/system integration.jpg"
+    ]
+  }
+  ,
+  {
+    "id": "l13",
+    "title": "Solar Panel Works",
+    "category": "engineering",
+    "subcategory": "Solar",
+    "description": "Solar panel installation and termination as part of ongoing maintenance.",
+    "client": "Energetix",
+    "location": "Singapore",
+    "year": "2022 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l14",
+    "title": "EV Charger and Solar Panel Works",
+    "category": "engineering",
+    "subcategory": "Solar & EV Charging",
+    "description": "Solar panel and EV charger installation and termination.",
+    "client": "Eigen Energy",
+    "location": "Singapore",
+    "year": "2022 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l15",
+    "title": "Term Contract for the Flushing of Drains",
+    "category": "engineering",
+    "subcategory": "Maintenance",
+    "description": "Term contract services for flushing of drains across designated estates.",
+    "client": "Jurong – Clementi Town Council",
+    "location": "Singapore",
+    "year": "2021 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/constructionservice.jpg"]
+  },
+  {
+    "id": "l16",
+    "title": "UE Square – Security System Maintenance",
+    "category": "engineering",
+    "subcategory": "Security Systems",
+    "description": "Comprehensive service and preventative maintenance for security systems.",
+    "client": "The MCST Plan 2421",
+    "location": "UE Square, Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+  },
+  {
+    "id": "l17",
+    "title": "UE Square – Security System Maintenance",
+    "category": "engineering",
+    "subcategory": "Security Systems",
+    "description": "Comprehensive service and preventative maintenance for security systems.",
+    "client": "United Engineers Limited",
+    "location": "UE Square, Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+  },
+  {
+    "id": "l18",
+    "title": "UE Square – Security System Maintenance",
+    "category": "engineering",
+    "subcategory": "Security Systems",
+    "description": "Comprehensive service and preventative maintenance for security systems.",
+    "client": "Park Avenue Suites",
+    "location": "UE Square, Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+  },
+  {
+    "id": "l19",
+    "title": "Carpark Batch 72",
+    "category": "engineering",
+    "subcategory": "M&E Maintenance",
+    "description": "Maintenance of mechanical and electrical work for carpark facilities.",
+    "client": "CKR Contract Services Pte Ltd",
+    "location": "Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+  },
+  {
+    "id": "l20",
+    "title": "YR Industries",
+    "category": "engineering",
+    "subcategory": "Cyclical Maintenance",
+    "description": "Cyclical maintenance works across facility systems.",
+    "client": "YR Industries Pte Ltd",
+    "location": "Singapore",
+    "year": "2019 - 2020",
+    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+  },
+  {
+    "id": "l21",
+    "title": "TFC",
+    "category": "engineering",
+    "subcategory": "Cyclical Maintenance",
+    "description": "Cyclical maintenance works for building systems.",
+    "client": "TFC Pte Ltd",
+    "location": "Singapore",
+    "year": "2020 - 2020",
+    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+  },
+  {
+    "id": "l22",
+    "title": "Hougang HDB N3C13",
+    "category": "engineering",
+    "subcategory": "M&E Maintenance",
+    "description": "Maintenance of mechanical and electrical work for HDB blocks.",
+    "client": "CKR Contract Services Pte Ltd",
+    "location": "Hougang, Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l23",
+    "title": "Reinstatement Works (Kallang Planning Area)",
+    "category": "engineering",
+    "subcategory": "M&E Maintenance",
+    "description": "Maintenance and reinstatement works across Kallang planning area.",
+    "client": "CKR Contract Services Pte Ltd",
+    "location": "Kallang, Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/constructionservice.jpg"]
+  },
+  {
+    "id": "l24",
+    "title": "August International Pte Ltd Building",
+    "category": "engineering",
+    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of electrical, air-conditioning, and plumbing systems.",
+    "client": "August International Pte Ltd",
+    "location": "Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l25",
+    "title": "TMC Academy Pte Ltd Building",
+    "category": "engineering",
+    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of electrical, air-conditioning, and plumbing systems.",
+    "client": "TMC Academy Pte Ltd",
+    "location": "Singapore",
+    "year": "2019 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l26",
+    "title": "Global Marine Safety (Singapore) Pte Ltd Building",
+    "category": "engineering",
+    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of electrical, air-conditioning, and plumbing systems. Cost: $45,000.00",
+    "client": "Global Marine Safety (Singapore) Pte Ltd",
+    "location": "Singapore",
+    "year": "2020 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l27",
+    "title": "Bluzen Pte Ltd Building",
+    "category": "engineering",
+    "subcategory": "Electrical & Network Cabling",
+    "description": "Maintenance of electrical systems and network cabling infrastructure.",
+    "client": "Bluzen Pte Ltd",
+    "location": "Singapore",
+    "year": "2020 - Present",
+    "imagePaths": ["hero_baner.png", "eng services/electionic and communication.jpg"]
+  },
+  {
+    "id": "l28",
+    "title": "Sengkang General Hospital",
+    "category": "engineering",
+    "subcategory": "Electrical & Data Comms",
+    "description": "Electrical works and data communication works.",
+    "client": "Ministry of Health / Great Resources M&E Pte Ltd",
+    "location": "Singapore",
+    "year": "2017",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l29",
+    "title": "EW31 MRT Station – Tuas Crescent",
+    "category": "engineering",
+    "subcategory": "Electrical Works",
+    "description": "Electrical works for MRT station infrastructure.",
+    "client": "LTA / Powen Electrical Pte Ltd",
+    "location": "Singapore",
+    "year": "2016/2017",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l30",
+    "title": "One Shenton – Tanjong Pagar",
+    "category": "engineering",
+    "subcategory": "Electrical Works",
+    "description": "Electrical works for residential development.",
+    "client": "Hyundai Engineering Pte Ltd / Singabuilt Construction Pte Ltd",
+    "location": "Singapore",
+    "year": "2016/2017",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l31",
+    "title": "D’NEST @ Pasir Ris",
+    "category": "engineering",
+    "subcategory": "Solar",
+    "description": "Solar panel installation for residential development.",
+    "client": "City Developments / Eigen Energy Pte Ltd",
+    "location": "Pasir Ris, Singapore",
+    "year": "2016/2017",
+    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+  },
+  {
+    "id": "l32",
+    "title": "Design & Build Lift Upgrading Works for G8b",
+    "category": "engineering",
+    "subcategory": "M&E, Painting & Waterproofing",
+    "description": "Mechanical & electrical works with painting and waterproofing.",
+    "client": "HDB / NDD Engineering Pte Ltd",
+    "location": "Singapore",
+    "year": "2014",
+    "imagePaths": ["eng services/painting.jpg", "eng services/constructionservice.jpg"]
+  },
+  {
+    "id": "l33",
+    "title": "Improvement Works to Changi Airport Hangar",
+    "category": "engineering",
+    "subcategory": "M&E, Electronic & Communication",
+    "description": "Mechanical & electrical works, electronic and communication system upgrades.",
+    "client": "Changi Airport Group / Don Jon Pte Ltd",
+    "location": "Changi, Singapore",
+    "year": "2015",
+    "imagePaths": ["eng services/electionic and communication.jpg", "eng services/system integration.jpg"]
+  },
+  {
+    "id": "l34",
+    "title": "Tampines HDB Rental Flat",
+    "category": "engineering",
+    "subcategory": "M&E, Electronic & Communication",
+    "description": "Mechanical & electrical works, electronic and communication system works.",
+    "client": "HDB / Grace Electrical",
+    "location": "Tampines, Singapore",
+    "year": "2015",
+    "imagePaths": ["eng services/Electrical.jpg", "eng services/system integration.jpg"]
+  },
+  {
+    "id": "l35",
+    "title": "Japanese Garden / Chinese Garden",
+    "category": "engineering",
+    "subcategory": "Maintenance",
+    "description": "Past maintenance project for public gardens.",
+    "client": "National Environment Agency / SMM Pte Ltd",
+    "location": "Singapore",
+    "year": "2016 - 2018",
+    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+  },
+  {
+    "id": "l36",
+    "title": "SKN3C29",
+    "category": "engineering",
+    "subcategory": "Maintenance",
+    "description": "Maintenance of electrical, aircon, plumbing & security system.",
+    "client": "Ken-Pal (S) Pte Ltd (KP)",
+    "location": "Singapore",
+    "year": "2020 - 2020",
+    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+  }
+]

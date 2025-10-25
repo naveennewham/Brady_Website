@@ -1,7 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import emailjs from '@emailjs/browser';
 import heroPoster from '../assets/hero_baner.png'
+
+// Fallback image handler for CTA image
+const onCtaImgError = (e) => {
+  if (e && e.target) {
+    e.target.src = heroPoster
+  }
+}
 
 // Testimonials data
 const testimonials = ref([
@@ -41,6 +48,10 @@ onMounted(() => {
     const loadedBefore = sessionStorage.getItem('heroVideoReady') === '1'
     showPoster.value = !loadedBefore
   }
+});
+
+onUnmounted(() => {
+  stopTestimonialRotation();
 });
 
 const startTestimonialRotation = () => {
@@ -217,7 +228,7 @@ const submitCta = async () => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm text-gray-300 mb-1">Phone</label>
-              <input v-model="ctaPhone" type="tel" class="w-full bg-brady-dark border border-brady-gold/30 text-white px-3 py-2 focus:outline-none focus:border-brady-gold" placeholder="+91 98765 43210" />
+              <input v-model="ctaPhone" type="tel" class="w-full bg-brady-dark border border-brady-gold/30 text-white px-3 py-2 focus:outline-none focus:border-brady-gold" placeholder="+65 8123 4567" />
             </div>
             <div>
               <label class="block text-sm text-gray-300 mb-1">Service</label>
@@ -254,7 +265,7 @@ const submitCta = async () => {
           <!-- Background Image - MEP Project -->
           <div class="absolute inset-0 w-full h-full">
             <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                 alt="MEP Engineering Services" 
+                 alt="MEP Engineering Services" loading="lazy" decoding="async"
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-brady-darker via-brady-darker/80 to-transparent"></div>
           </div>
@@ -296,7 +307,7 @@ const submitCta = async () => {
           <!-- Background Image -->
           <div class="absolute inset-0 w-full h-full">
             <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                 alt="Interior Services" 
+                 alt="Interior Services" loading="lazy" decoding="async"
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-brady-darker via-brady-darker/80 to-transparent"></div>
           </div>
@@ -337,7 +348,7 @@ const submitCta = async () => {
           <!-- Background Image -->
           <div class="absolute inset-0 w-full h-full">
             <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                 alt="Building Services" 
+                 alt="Building Services" loading="lazy" decoding="async"
                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-brady-darker via-brady-darker/80 to-transparent"></div>
           </div>
@@ -405,7 +416,7 @@ const submitCta = async () => {
           <!-- Main Image with Overlay -->
           <div class="relative rounded-sm overflow-hidden shadow-2xl">
             <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                 alt="Brady Construction Team" 
+                 alt="Brady Construction Team" loading="lazy" decoding="async"
                  class="w-full h-[500px] object-cover">
             
             <!-- Gradient Overlay -->

@@ -1,0 +1,120 @@
+{
+  "about": {
+    "title": "About Brady",
+    "bullets": []
+  },
+  "missionValues": {
+    "title": "Mission & Values",
+    "bullets": []
+  },
+  "services": {
+    "engineering": {
+      "title": "Engineering Services",
+      "bullets": []
+    },
+    "interior": {
+      "title": "Interior Design Services",
+      "bullets": []
+    },
+    "maintenance": {
+      "title": "Maintenance / AMCs",
+      "bullets": []
+    }
+  },
+  "sectors": {
+    "title": "Sectors & Industries",
+    "items": []
+  },
+  "capabilities": {
+    "title": "Capabilities & Certifications",
+    "bullets": []
+  },
+  "hse": {
+    "title": "HSE & Compliance",
+    "bullets": []
+  },
+  "clients": {
+    "title": "Clients & Partners",
+    "items": []
+  },
+  "awards": {
+    "title": "Awards & Accreditations",
+    "bullets": []
+  },
+  "scopeOfBusiness": {
+    "title": "Scope of Business",
+    "groups": [
+      {
+        "title": "Electrical works for Residential",
+        "items": [
+          "Power failure or power tripping",
+          "Electrical blackout or faulty",
+          "Electrical troubleshooting",
+          "Full or partial house re-wiring",
+          "Change main circuit breakers",
+          "Move, replace or add light fixtures, lights or sockets",
+          "Fault finding, inspection testing",
+          "TV points, water heater points & air con points",
+          "Extra telephone & electrical sockets",
+          "Ceiling fan, water heater installation",
+          "Cable TV sockets, SCV point",
+          "Faulty or broken power points & light switches",
+          "Wiring for video and stereo systems",
+          "Breakers, fuses, switches, outlets",
+          "Panel upgrade & service",
+          "Licensed electrical worker (LEW) testing and submission"
+        ]
+      },
+      {
+        "title": "Electrical – Works for Industrial, Commercial, Substations, Plants and Schools",
+        "items": [
+          "Installation of electrical panels, isolators, isolator points, cable ladders, cable tray, trunking conduits and conduit accessories",
+          "Installation of power points, lighting points and lightings",
+          "Installation of switches, socket outlets and sensors",
+          "Installation of DB",
+          "Cable laying, pulling and termination",
+          "All the electrical openings sealed with fire stop material",
+          "HT & LV equipment installation",
+          "Power & control cable way & cabling",
+          "Termination of HT & LV cable",
+          "Earthing & lightning protection system installation",
+          "Telecom works"
+        ]
+      },
+      {
+        "title": "Electrical – Testing & Commissioning",
+        "items": [
+          "HT & LV cable testing",
+          "AC / DC high potential testing",
+          "Contact resistance testing",
+          "Protective relays calibration",
+          "UPS system & battery / charger testing",
+          "Electrical system troubleshooting"
+        ]
+      },
+      {
+        "title": "Commercial & Industrial Building (Maintenance Contracts)",
+        "items": [
+          "1 year maintenance contract with fixed unit rate",
+          "2 year maintenance contract with fixed unit rate",
+          "3 year maintenance contract with fixed unit rate"
+        ]
+      },
+      {
+        "title": "ELV Systems",
+        "items": [
+          "Closed circuit television (CCTV) system",
+          "Structured data cable system",
+          "Speakers, projector support and points, VGA points and audio system",
+          "Telephone system",
+          "Card access system",
+          "Sound system",
+          "Intelligent lighting system",
+          "CATV system",
+          "MATV system",
+          "Emergency call points, UPS system, security system and fireman intercom system"
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import logoUrl from './assets/brady_logo_trans.png'
+import logoTransUrl from './assets/brady_logo_trans.png'
+import logoGrayUrl from './assets/brady_logo_gray.png'
 
 // Navbar state
 const isMenuOpen = ref(false)
@@ -52,6 +53,14 @@ const handleScroll = () => {
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+// Use gray logo everywhere except on Interior page
+const displayedLogo = computed(() => {
+  const path = route.path || ''
+  // Keep original transparent logo on interior page
+  if (path.startsWith('/interior')) return logoTransUrl
+  return logoGrayUrl
+})
 </script>
 
 <template>
@@ -61,7 +70,7 @@ const toggleMenu = () => {
       <nav class="flex justify-between items-center">
         <!-- Logo -->
         <router-link to="/" class="flex items-center">
-          <img :src="logoUrl" alt="Brady Interiors" class="h-16 md:h-20 w-auto" />
+          <img :src="displayedLogo" alt="Brady Interiors" class="h-16 md:h-20 w-auto" />
         </router-link>
 
         <!-- Desktop Navigation -->
@@ -71,7 +80,7 @@ const toggleMenu = () => {
           <router-link to="/engineering-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
           <router-link to="/interior-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Interior</router-link>
           <router-link to="/portfolio" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
-          <router-link to="/case-studies" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Case Studies</router-link>
+          <router-link to="/case-studies" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Blob</router-link>
           <router-link to="/contact" class="btn-primary">Contact Us</router-link>
         </div>
 
@@ -94,7 +103,7 @@ const toggleMenu = () => {
           <router-link @click="isMenuOpen = false" to="/engineering-services" class="text-white hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
           <router-link @click="isMenuOpen = false" to="/interior-services" class="text-white hover:text-brady-gold font-medium transition-colors">Interior</router-link>
           <router-link @click="isMenuOpen = false" to="/portfolio" class="text-white hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
-          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-white hover:text-brady-gold font-medium transition-colors">Case Studies</router-link>
+          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-white hover:text-brady-gold font-medium transition-colors">Blob</router-link>
           <router-link @click="isMenuOpen = false" to="/contact" class="btn-primary inline-block text-center">Contact Us</router-link>
         </div>
       </div>
@@ -128,7 +137,9 @@ const toggleMenu = () => {
         <!-- Brand / About -->
         <div>
           <div class="flex items-center mb-4">
-            <img :src="logoUrl" alt="Brady Interiors" class="h-12 w-auto" />
+            <div class="inline-flex items-center bg-white p-2 rounded-sm">
+              <img :src="displayedLogo" alt="Brady Interiors" class="h-12 w-auto" />
+            </div>
           </div>
           <p class="text-gray-300 mb-6">Engineering, interior design, and builder software engineering—delivered with excellence and integrity.</p>
           <div class="flex items-center gap-3">
@@ -154,7 +165,7 @@ const toggleMenu = () => {
             <li><router-link to="/engineering-services" class="text-gray-300 hover:text-white transition-colors">Engineering Services</router-link></li>
             <li><router-link to="/interior-services" class="text-gray-300 hover:text-white transition-colors">Interior Services</router-link></li>
             <li><router-link to="/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</router-link></li>
-            <li><router-link to="/case-studies" class="text-gray-300 hover:text-white transition-colors">Case Studies</router-link></li>
+            <li><router-link to="/case-studies" class="text-gray-300 hover:text-white transition-colors">Blob</router-link></li>
           </ul>
         </div>
 
@@ -163,7 +174,6 @@ const toggleMenu = () => {
           <h3 class="text-xl font-semibold mb-4 text-brady-gold">Company</h3>
           <ul class="space-y-2">
             <li><router-link to="/about" class="text-gray-300 hover:text-white transition-colors">About Us</router-link></li>
-            <li><router-link to="/clients" class="text-gray-300 hover:text-white transition-colors">Clients</router-link></li>
             <li><router-link to="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</router-link></li>
             <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Careers</a></li>
           </ul>

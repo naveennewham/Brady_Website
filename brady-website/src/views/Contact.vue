@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import emailjs from '@emailjs/browser';
 
 // Form data
 const formData = ref({
@@ -43,31 +44,48 @@ const validateForm = () => {
 };
 
 // Submit form
+// Simple Singapore phone validation (optional field)
+const isValidSGPhone = (val) => {
+  if (!val) return true; // optional
+  const sg = /^(?:\+65\s?)?(?:[689]\d{3}\s?\d{4})$/;
+  return sg.test(val.trim());
+};
+
 const submitForm = async () => {
-  if (!validateForm()) {
+  if (!validateForm()) return;
+  if (!isValidSGPhone(formData.value.phone)) {
+    submitError.value = 'Please enter a valid Singapore phone number (e.g., +65 8123 4567).';
     return;
   }
-  
+
   isSubmitting.value = true;
   submitSuccess.value = false;
   submitError.value = null;
-  
+
   try {
-    // In a real implementation, this would send data to a server or Firebase
-    // For now, we'll simulate a successful submission after a delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    submitSuccess.value = true;
-    formData.value = {
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (!serviceId || !templateId || !publicKey) {
+      throw new Error('EmailJS environment variables are missing.');
+    }
+
+    const templateParams = {
+      from_name: formData.value.name,
+      from_email: formData.value.email,
+      phone: formData.value.phone,
+      subject: formData.value.subject,
+      message: formData.value.message,
+      submitted_at: new Date().toISOString(),
     };
+
+    await emailjs.send(serviceId, templateId, templateParams, { publicKey });
+
+    submitSuccess.value = true;
+    formData.value = { name: '', email: '', phone: '', subject: '', message: '' };
   } catch (error) {
     console.error('Error submitting form:', error);
-    submitError.value = 'There was an error submitting your message. Please try again later.';
+    submitError.value = error?.message || 'There was an error submitting your message. Please try again later.';
   } finally {
     isSubmitting.value = false;
   }
@@ -276,6 +294,7 @@ const submitForm = async () => {
                   id="phone" 
                   v-model="formData.phone" 
                   class="w-full px-4 py-2 border rounded-md focus:ring-brady-gold focus:border-brady-gold bg-brady-gray-900 text-white placeholder-gray-400 border-brady-gray-700"
+                  placeholder="+65 8123 4567"
                 >
               </div>
               
@@ -361,7 +380,7 @@ const submitForm = async () => {
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Image Side -->
           <div class="relative h-64 md:h-auto">
-            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Appointment" class="absolute inset-0 w-full h-full object-cover">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Appointment" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
           </div>
           
           <!-- Content Side -->
