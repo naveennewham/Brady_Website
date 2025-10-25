@@ -472,7 +472,7 @@ const onImgError = (e) => {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               <div v-for="project in maintenanceCurrentFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
                 <div class="relative overflow-hidden rounded-lg mb-4 h-72 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
-                  <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-20"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+                  <!-- current badge removed -->
                   <!-- Client logo / initials at top-left -->
                   <div class="absolute top-5 left-5 z-10">
                     <div class="w-12 h-12 rounded-md border border-brady-gold/70 bg-brady-dark/60 overflow-hidden flex items-center justify-center">
@@ -520,7 +520,7 @@ const onImgError = (e) => {
             <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div v-for="project in maintenancePastFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
                 <div class="relative overflow-hidden rounded-lg mb-4 h-72 bg-gradient-to-br from-[#0B0B0C] via-[#121214] to-[#1A1A1D] border-b-2 border-brady-gold">
-                  <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-10"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+                  <!-- current badge removed -->
                   <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
                   <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
                   <!-- Icon box in top-right for past, consistent with current/default -->
@@ -559,7 +559,7 @@ const onImgError = (e) => {
       <div v-else id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="project in filteredProjects" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
           <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
-            <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-10"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
+            <!-- current badge removed -->
             <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
             <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
             <div class="absolute top-4 right-4 w-12 h-12 rounded-md border border-brady-gold text-brady-gold bg-brady-dark/40 flex items-center justify-center">
