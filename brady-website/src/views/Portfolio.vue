@@ -18,8 +18,29 @@ const error = ref(null);
 
 // (Removed unused image helpers)
 
-// Env flag to force local loading
-const useLocal = import.meta.env.VITE_USE_LOCAL_PROJECTS === 'true'
+// Force local loading for now (overrides env flag)
+const useLocal = true
+
+// Map all assets to URLs (eager) for robust resolution with spaces in paths
+// Keys look like '../assets/eng services/painting.jpg'
+const assetUrls = import.meta.glob('../assets/**/*.{jpg,jpeg,png,webp,gif}', { eager: true, as: 'url' })
+
+function resolveAsset(rel) {
+  if (!rel) return undefined;
+  const raw = `../assets/${rel}`;
+  // Try direct key
+  if (assetUrls[raw]) return assetUrls[raw];
+  // Try decoded
+  const dec = decodeURI(rel);
+  if (assetUrls[`../assets/${dec}`]) return assetUrls[`../assets/${dec}`];
+  // Try encoded
+  const enc = encodeURI(rel);
+  if (assetUrls[`../assets/${enc}`]) return assetUrls[`../assets/${enc}`];
+  // Fallback to URL constructor
+  try { return new URL(`../assets/${enc}`, import.meta.url).href } catch { /* noop */ }
+  try { return new URL(`../assets/${rel}`, import.meta.url).href } catch { /* noop */ }
+  return undefined;
+}
 
 // Placeholder projects (will be replaced with Firebase data)
 const placeholderProjects = [
@@ -114,9 +135,26 @@ const selectedProject = ref(null);
 const isModalOpen = ref(false);
 const currentImageIndex = ref(0);
 
+// Helper: Format title - only first letter capitalized, rest lowercase
+function formatTitle(str) {
+  if (!str || typeof str !== 'string') return str;
+  const s = str.trim();
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+}
+
 // Modal actions
 const openProjectModal = (project) => {
-  selectedProject.value = project
+  // Ensure images are present; if not, resolve from imagePaths now
+  let imgs = Array.isArray(project.images) ? project.images.slice() : []
+  if (!imgs.length && Array.isArray(project.imagePaths)) {
+    imgs = project.imagePaths.map(rel => resolveAsset(rel)).filter(Boolean)
+  }
+  const enriched = { ...project, images: imgs }
+  if (import.meta.env.DEV) {
+    console.log('[Portfolio] Opening modal for', enriched.title, 'images:', enriched.images)
+  }
+  selectedProject.value = enriched
   currentImageIndex.value = 0
   isModalOpen.value = true
   if (typeof document !== 'undefined') {
@@ -280,7 +318,7 @@ function loadFromLocal() {
   try {
     const resolved = (localProjects || []).map(p => {
       const images = Array.isArray(p.imagePaths)
-        ? p.imagePaths.map(rel => new URL(`../assets/${rel}`, import.meta.url).href)
+        ? p.imagePaths.map(rel => resolveAsset(rel)).filter(Boolean)
         : Array.isArray(p.images)
           ? p.images
           : []
@@ -293,10 +331,15 @@ function loadFromLocal() {
         client: p.client,
         location: p.location,
         year: p.year,
-        images
+        images,
+        imagePaths: p.imagePaths || []
       }
     })
     projects.value = resolved
+    if (import.meta.env.DEV) {
+      // Minimal debug: log first two projects' titles and number of images
+      console.log('[Portfolio] Loaded local projects:', projects.value.slice(0, 2).map(p => ({ title: p.title, images: p.images?.length })))
+    }
     error.value = null
   } catch (e) {
     console.error('Failed to load local projects:', e)
@@ -318,6 +361,13 @@ const setFilter = (filter) => {
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=60'
 const onImgError = (e) => {
   if (e && e.target) {
+    if (import.meta.env.DEV) {
+      try {
+        const failedSrc = e.target.currentSrc || e.target.src
+        const alt = e.target.alt || ''
+        console.warn('[Portfolio] Image failed to load:', { src: failedSrc, alt })
+      } catch {}
+    }
     e.target.src = FALLBACK_IMG
   }
 }
@@ -421,7 +471,7 @@ const onImgError = (e) => {
             <div class="hidden"></div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               <div v-for="project in maintenanceCurrentFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
-                <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
+                <div class="relative overflow-hidden rounded-lg mb-4 h-72 bg-gradient-to-br from-[#14110F] via-[#1B1714] to-[#23201A] border-b-2 border-brady-gold">
                   <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-20"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
                   <!-- Client logo / initials at top-left -->
                   <div class="absolute top-5 left-5 z-10">
@@ -441,15 +491,13 @@ const onImgError = (e) => {
                     <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                   </div>
                   
-                  <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
+                  <div class="absolute inset-x-0 bottom-0 z-10 p-5 pr-7 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
                     <div class="flex items-start justify-between gap-4 w-full">
                       <div class="flex items-start gap-0 min-w-0">
                         <div class="min-w-0">
-                          <div class="text-[11px] uppercase tracking-[0.15em] text-brady-gold font-semibold">{{ project.subcategory }}</div>
-                          <h3 class="mt-1 text-white font-bold text-2xl leading-snug line-clamp-2">
-                            <span class="bg-white/15 px-1.5 rounded-sm">{{ project.title }}</span>
-                          </h3>
-                          <p class="mt-2 text-base text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
+                          <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
+                          <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
+                          <p class="mt-2 text-sm text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
                           <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
                         </div>
                       </div>
@@ -471,7 +519,7 @@ const onImgError = (e) => {
             <div class="hidden"></div>
             <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div v-for="project in maintenancePastFiltered" :key="project.id" class="group cursor-pointer" @click="openProjectModal(project)">
-                <div class="relative overflow-hidden rounded-lg mb-4 h-64 bg-gradient-to-br from-[#0B0B0C] via-[#121214] to-[#1A1A1D] border-b-2 border-brady-gold">
+                <div class="relative overflow-hidden rounded-lg mb-4 h-72 bg-gradient-to-br from-[#0B0B0C] via-[#121214] to-[#1A1A1D] border-b-2 border-brady-gold">
                   <div v-if="String(project.year || '').includes('Present')" class="absolute top-3 left-3 z-10"><span class="px-2 py-1 text-xs font-semibold bg-brady-gold text-brady-darker tracking-wide">Current</span></div>
                   <div class="absolute inset-2 rounded-md border border-brady-gold/10 pointer-events-none"></div>
                   <div class="absolute top-2 right-2 w-4 h-4 bg-brady-gold/20 rotate-45 pointer-events-none"></div>
@@ -483,12 +531,12 @@ const onImgError = (e) => {
                     <svg v-else-if="/(Maintenance|M&E|Network|Communication|Lift|Plumbing)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V10"/></svg>
                     <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                   </div>
-                  <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent">
+                  <div class="absolute inset-x-0 bottom-0 z-10 p-5 pr-7 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent">
                     <div class="flex items-start justify-between gap-4 w-full">
                       <div class="flex items-start gap-0 min-w-0">
                         <div class="min-w-0">
-                          <div class="text-xs inline-flex px-2 py-0.5 bg-brady-gold/20 text-brady-gold tracking-wide">{{ project.subcategory }}</div>
-                          <h3 class="mt-1 text-brady-gold font-semibold text-lg leading-snug tracking-wide uppercase line-clamp-2">{{ project.title }}</h3>
+                          <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
+                          <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
                           <p class="mt-1 text-sm text-gray-300 line-clamp-2" v-if="project.description">{{ project.description }}</p>
                           <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
                         </div>
@@ -521,15 +569,13 @@ const onImgError = (e) => {
               <svg v-else-if="/(Maintenance|M&E|Network|Communication|Lift|Plumbing)/i.test(project.subcategory || '')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V10"/></svg>
               <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
-            <div class="absolute inset-x-0 bottom-0 z-10 p-4 pr-6 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
+            <div class="absolute inset-x-0 bottom-0 z-10 p-5 pr-7 bg-gradient-to-t from-[rgba(20,17,15,0.92)] via-[rgba(20,17,15,0.6)] to-transparent min-h-[60%] flex items-end">
               <div class="flex items-start justify-between gap-4 w-full">
                 <div class="flex items-start gap-0 min-w-0">
                   <div class="min-w-0">
-                    <div class="text-[11px] uppercase tracking-[0.15em] text-brady-gold font-semibold">{{ project.subcategory }}</div>
-                    <h3 class="mt-1 text-white font-bold text-2xl leading-snug line-clamp-2">
-                      <span class="bg-white/15 px-1.5 rounded-sm">{{ project.title }}</span>
-                    </h3>
-                    <p class="mt-2 text-base text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
+                    <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
+                    <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
+                    <p class="mt-2 text-sm text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
                     <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
                   </div>
                 </div>
@@ -546,6 +592,59 @@ const onImgError = (e) => {
 
     </div>
   </section>
+  
+  <!-- Project Modal -->
+  <transition name="fade">
+    <div v-if="isModalOpen && selectedProject" class="fixed inset-0 z-50">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/70" @click="closeProjectModal"></div>
+
+      <!-- Dialog -->
+      <div class="relative z-10 max-w-5xl mx-auto mt-16 mb-10 bg-brady-darker border border-brady-gold/30 shadow-2xl">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-brady-gold/20 bg-brady-dark">
+          <div class="min-w-0 pr-4">
+            <div class="text-xs tracking-wide text-brady-gold/90">{{ selectedProject.subcategory }}</div>
+            <h3 class="text-white font-medium text-xl truncate">{{ selectedProject.title }}</h3>
+          </div>
+          <button @click="closeProjectModal" aria-label="Close" class="text-gray-300 hover:text-white">✕</button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Image area -->
+          <div class="relative bg-brady-dark/40 border border-brady-gray-700 h-72 md:h-96 flex items-center justify-center overflow-hidden">
+            <img 
+              v-if="Array.isArray(selectedProject.images) && selectedProject.images.length"
+              :src="selectedProject.images[currentImageIndex]"
+              :alt="selectedProject.title"
+              class="w-full h-full object-cover"
+              @error="onImgError"
+            />
+            <div v-else class="text-gray-400">No images available</div>
+
+            <!-- Nav arrows -->
+            <button @click.stop="prevImage" class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brady-dark/70 border border-brady-gold text-brady-gold flex items-center justify-center"> 
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button @click.stop="nextImage" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brady-dark/70 border border-brady-gold text-brady-gold flex items-center justify-center"> 
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- Details -->
+          <div>
+            <p v-if="selectedProject.description" class="text-gray-300 mb-4">{{ selectedProject.description }}</p>
+            <div class="space-y-1 text-sm text-gray-300">
+              <div><span class="text-gray-400">Client:</span> {{ selectedProject.client }}</div>
+              <div v-if="selectedProject.location"><span class="text-gray-400">Location:</span> {{ selectedProject.location }}</div>
+              <div><span class="text-gray-400">Year:</span> {{ selectedProject.year }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <style scoped>

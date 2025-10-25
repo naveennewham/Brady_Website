@@ -8,7 +8,7 @@
     "client": "Energetix",
     "location": "Singapore",
     "year": "2022 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l14",
@@ -19,7 +19,7 @@
     "client": "Eigen Energy",
     "location": "Singapore",
     "year": "2022 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l15",
@@ -30,7 +30,7 @@
     "client": "Jurong – Clementi Town Council",
     "location": "Singapore",
     "year": "2021 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/constructionservice.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/constructionservice.jpg"]
   },
   {
     "id": "l16",
@@ -41,7 +41,7 @@
     "client": "The MCST Plan 2421",
     "location": "UE Square, Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/system integration.jpg"]
   },
   {
     "id": "l17",
@@ -52,7 +52,7 @@
     "client": "United Engineers Limited",
     "location": "UE Square, Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/system integration.jpg"]
   },
   {
     "id": "l18",
@@ -63,18 +63,18 @@
     "client": "Park Avenue Suites",
     "location": "UE Square, Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/system integration.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/system integration.jpg"]
   },
   {
     "id": "l19",
     "title": "Carpark Batch 72",
     "category": "engineering",
     "subcategory": "M&E Maintenance",
-    "description": "Maintenance of mechanical and electrical work for carpark facilities.",
+    "description": "Maintenance of mechanical and painting work for carpark facilities.",
     "client": "CKR Contract Services Pte Ltd",
     "location": "Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/Mechanical.jpg"]
   },
   {
     "id": "l20",
@@ -85,7 +85,7 @@
     "client": "YR Industries Pte Ltd",
     "location": "Singapore",
     "year": "2019 - 2020",
-    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/Mechanical.jpg"]
   },
   {
     "id": "l21",
@@ -96,18 +96,18 @@
     "client": "TFC Pte Ltd",
     "location": "Singapore",
     "year": "2020 - 2020",
-    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/Mechanical.jpg"]
   },
   {
     "id": "l22",
     "title": "Hougang HDB N3C13",
     "category": "engineering",
     "subcategory": "M&E Maintenance",
-    "description": "Maintenance of mechanical and electrical work for HDB blocks.",
+    "description": "Maintenance of mechanical and painting work for HDB blocks.",
     "client": "CKR Contract Services Pte Ltd",
     "location": "Hougang, Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l23",
@@ -118,84 +118,84 @@
     "client": "CKR Contract Services Pte Ltd",
     "location": "Kallang, Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/constructionservice.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/constructionservice.jpg"]
   },
   {
     "id": "l24",
     "title": "August International Pte Ltd Building",
     "category": "engineering",
-    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
-    "description": "Maintenance of electrical, air-conditioning, and plumbing systems.",
+    "subcategory": "painting, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of painting, air-conditioning, and plumbing systems.",
     "client": "August International Pte Ltd",
     "location": "Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l25",
     "title": "TMC Academy Pte Ltd Building",
     "category": "engineering",
-    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
-    "description": "Maintenance of electrical, air-conditioning, and plumbing systems.",
+    "subcategory": "painting, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of painting, air-conditioning, and plumbing systems.",
     "client": "TMC Academy Pte Ltd",
     "location": "Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l26",
     "title": "Global Marine Safety (Singapore) Pte Ltd Building",
     "category": "engineering",
-    "subcategory": "Electrical, Aircon & Plumbing Maintenance",
-    "description": "Maintenance of electrical, air-conditioning, and plumbing systems. Cost: $45,000.00",
+    "subcategory": "painting, Aircon & Plumbing Maintenance",
+    "description": "Maintenance of painting, air-conditioning, and plumbing systems. Cost: $45,000.00",
     "client": "Global Marine Safety (Singapore) Pte Ltd",
     "location": "Singapore",
     "year": "2020 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l27",
     "title": "Bluzen Pte Ltd Building",
     "category": "engineering",
-    "subcategory": "Electrical & Network Cabling",
-    "description": "Maintenance of electrical systems and network cabling infrastructure.",
+    "subcategory": "painting & Network Cabling",
+    "description": "Maintenance of painting systems and network cabling infrastructure.",
     "client": "Bluzen Pte Ltd",
     "location": "Singapore",
     "year": "2020 - Present",
-    "imagePaths": ["hero_baner.png", "eng services/electionic and communication.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/electionic and communication.jpg"]
   },
   {
     "id": "l28",
     "title": "Sengkang General Hospital",
     "category": "engineering",
-    "subcategory": "Electrical & Data Comms",
-    "description": "Electrical works and data communication works.",
+    "subcategory": "painting & Data Comms",
+    "description": "painting works and data communication works.",
     "client": "Ministry of Health / Great Resources M&E Pte Ltd",
     "location": "Singapore",
     "year": "2017",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l29",
     "title": "EW31 MRT Station – Tuas Crescent",
     "category": "engineering",
-    "subcategory": "Electrical Works",
-    "description": "Electrical works for MRT station infrastructure.",
-    "client": "LTA / Powen Electrical Pte Ltd",
+    "subcategory": "painting Works",
+    "description": "painting works for MRT station infrastructure.",
+    "client": "LTA / Powen painting Pte Ltd",
     "location": "Singapore",
     "year": "2016/2017",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l30",
     "title": "One Shenton – Tanjong Pagar",
     "category": "engineering",
-    "subcategory": "Electrical Works",
-    "description": "Electrical works for residential development.",
+    "subcategory": "painting Works",
+    "description": "painting works for residential development.",
     "client": "Hyundai Engineering Pte Ltd / Singabuilt Construction Pte Ltd",
     "location": "Singapore",
     "year": "2016/2017",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l31",
@@ -206,14 +206,14 @@
     "client": "City Developments / Eigen Energy Pte Ltd",
     "location": "Pasir Ris, Singapore",
     "year": "2016/2017",
-    "imagePaths": ["hero_baner.png", "eng services/Electrical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
   },
   {
     "id": "l32",
     "title": "Design & Build Lift Upgrading Works for G8b",
     "category": "engineering",
     "subcategory": "M&E, Painting & Waterproofing",
-    "description": "Mechanical & electrical works with painting and waterproofing.",
+    "description": "Mechanical & painting works with painting and waterproofing.",
     "client": "HDB / NDD Engineering Pte Ltd",
     "location": "Singapore",
     "year": "2014",
@@ -224,7 +224,7 @@
     "title": "Improvement Works to Changi Airport Hangar",
     "category": "engineering",
     "subcategory": "M&E, Electronic & Communication",
-    "description": "Mechanical & electrical works, electronic and communication system upgrades.",
+    "description": "Mechanical & painting works, electronic and communication system upgrades.",
     "client": "Changi Airport Group / Don Jon Pte Ltd",
     "location": "Changi, Singapore",
     "year": "2015",
@@ -235,11 +235,11 @@
     "title": "Tampines HDB Rental Flat",
     "category": "engineering",
     "subcategory": "M&E, Electronic & Communication",
-    "description": "Mechanical & electrical works, electronic and communication system works.",
-    "client": "HDB / Grace Electrical",
+    "description": "Mechanical & painting works, electronic and communication system works.",
+    "client": "HDB / Grace painting",
     "location": "Tampines, Singapore",
     "year": "2015",
-    "imagePaths": ["eng services/Electrical.jpg", "eng services/system integration.jpg"]
+    "imagePaths": ["eng services/painting.jpg", "eng services/system integration.jpg"]
   },
   {
     "id": "l35",
@@ -250,17 +250,17 @@
     "client": "National Environment Agency / SMM Pte Ltd",
     "location": "Singapore",
     "year": "2016 - 2018",
-    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/Mechanical.jpg"]
   },
   {
     "id": "l36",
     "title": "SKN3C29",
     "category": "engineering",
     "subcategory": "Maintenance",
-    "description": "Maintenance of electrical, aircon, plumbing & security system.",
+    "description": "Maintenance of painting, aircon, plumbing & security system.",
     "client": "Ken-Pal (S) Pte Ltd (KP)",
     "location": "Singapore",
     "year": "2020 - 2020",
-    "imagePaths": ["hero_baner.png", "eng services/Mechanical.jpg"]
+    "imagePaths": ["eng services/welding.jpg", "eng services/Mechanical.jpg"]
   }
 ]

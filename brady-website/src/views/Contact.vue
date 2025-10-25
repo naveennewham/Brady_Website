@@ -149,9 +149,9 @@ const submitForm = async () => {
               <div>
                 <h3 class="text-lg font-semibold text-white mb-1">Our Location</h3>
                 <p class="text-gray-300">
-                  123 Construction Avenue<br>
-                  Building City, BC 12345<br>
-                  United States
+                  BLK 808 French Road, #03-14<br>
+                  Kitchener Complex<br>
+                  Singapore 200808
                 </p>
               </div>
             </div>
@@ -166,8 +166,7 @@ const submitForm = async () => {
               <div>
                 <h3 class="text-lg font-semibold text-white mb-1">Email Us</h3>
                 <p class="text-gray-300">
-                  General Inquiries: <a href="mailto:info@bradyconstruction.com" class="text-brady-gold hover:underline">info@bradyconstruction.com</a><br>
-                  Support: <a href="mailto:support@bradyconstruction.com" class="text-brady-gold hover:underline">support@bradyconstruction.com</a>
+                  <a href="mailto:enquiries@brady.sg" class="text-brady-gold hover:underline">enquiries@brady.sg</a>
                 </p>
               </div>
             </div>
@@ -180,10 +179,9 @@ const submitForm = async () => {
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-1">Call Us</h3>
+                <h3 class="text-lg font-semibold text-white mb-1">WhatsApp</h3>
                 <p class="text-gray-300">
-                  Main Office: <a href="tel:+15551234567" class="text-brady-gold hover:underline">+1 (555) 123-4567</a><br>
-                  Customer Service: <a href="tel:+15559876543" class="text-brady-gold hover:underline">+1 (555) 987-6543</a>
+                  <a href="https://wa.me/6582837609" target="_blank" rel="noopener noreferrer" class="text-brady-gold hover:underline">+65 8283 7609</a>
                 </p>
               </div>
             </div>
@@ -198,10 +196,12 @@ const submitForm = async () => {
               <div>
                 <h3 class="text-lg font-semibold text-white mb-1">Business Hours</h3>
                 <p class="text-gray-300">
-                  Monday - Friday: 8:00 AM - 6:00 PM<br>
-                  Saturday: 9:00 AM - 1:00 PM<br>
+                  Monday – Friday (10am – 8pm)<br>
+                  Saturday (10am – 2pm)<br>
                   Sunday: Closed
                 </p>
+                <h4 class="text-white font-semibold mt-3">Showroom</h4>
+                <p class="text-gray-300">Monday – Sunday (10am – 7pm)</p>
               </div>
             </div>
           </div>
@@ -210,24 +210,24 @@ const submitForm = async () => {
           <div class="mt-8">
             <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
             <div class="flex space-x-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-brady-gray-800 border border-brady-gray-700 flex items-center justify-center text-white hover:bg-brady-gold hover:text-white transition-colors">
+              <!-- Facebook -->
+              <a href="https://www.facebook.com/profile.php?id=61580221034200" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-brady-gray-800 border border-brady-gray-700 flex items-center justify-center text-white hover:bg-brady-gold hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
                 </svg>
               </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/interiorsbrady?igsh=OGk3ejlvaWRheHp0&utm_source=qr" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10z"/>
+                  <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 2.2A2.8 2.8 0 1112 14.8 2.8 2.8 0 0112 9.2z"/>
+                  <circle cx="17.5" cy="6.5" r="1.2"/>
                 </svg>
               </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
-                </svg>
-              </a>
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
+              <!-- TikTok -->
+              <a href="https://www.tiktok.com/@brady.interiors?_t=ZS-90q9L3MiIcs&_r=1" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-brady-charcoal hover:bg-brady-gold hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">
+                  <path d="M21 8.5a7.5 7.5 0 01-6-2.9V17a5 5 0 11-5-5 5.3 5.3 0 011 .1v2.6a2.5 2.5 0 10-1 .2V3h3a7.5 7.5 0 006 2.9V8.5z"/>
                 </svg>
               </a>
             </div>
