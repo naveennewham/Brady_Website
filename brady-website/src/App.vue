@@ -80,7 +80,7 @@ const displayedLogo = computed(() => {
           <router-link to="/engineering-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
           <router-link to="/interior-services" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Interior</router-link>
           <router-link to="/portfolio" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
-          <router-link to="/case-studies" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Blob</router-link>
+          <router-link to="/case-studies" class="text-brady-charcoal hover:text-brady-gold font-medium transition-colors">Blog</router-link>
           <router-link to="/contact" class="btn-primary">Contact Us</router-link>
         </div>
 
@@ -103,7 +103,7 @@ const displayedLogo = computed(() => {
           <router-link @click="isMenuOpen = false" to="/engineering-services" class="text-white hover:text-brady-gold font-medium transition-colors">Engineering</router-link>
           <router-link @click="isMenuOpen = false" to="/interior-services" class="text-white hover:text-brady-gold font-medium transition-colors">Interior</router-link>
           <router-link @click="isMenuOpen = false" to="/portfolio" class="text-white hover:text-brady-gold font-medium transition-colors">Portfolio</router-link>
-          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-white hover:text-brady-gold font-medium transition-colors">Blob</router-link>
+          <router-link @click="isMenuOpen = false" to="/case-studies" class="text-white hover:text-brady-gold font-medium transition-colors">Blog</router-link>
           <router-link @click="isMenuOpen = false" to="/contact" class="btn-primary inline-block text-center">Contact Us</router-link>
         </div>
       </div>
@@ -171,7 +171,7 @@ const displayedLogo = computed(() => {
             <li><router-link to="/engineering-services" class="text-gray-300 hover:text-white transition-colors">Engineering Services</router-link></li>
             <li><router-link to="/interior-services" class="text-gray-300 hover:text-white transition-colors">Interior Services</router-link></li>
             <li><router-link to="/portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</router-link></li>
-            <li><router-link to="/case-studies" class="text-gray-300 hover:text-white transition-colors">Blob</router-link></li>
+            <li><router-link to="/case-studies" class="text-gray-300 hover:text-white transition-colors">Blog</router-link></li>
           </ul>
         </div>
 

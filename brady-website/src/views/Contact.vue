@@ -186,6 +186,21 @@ const submitForm = async () => {
               </div>
             </div>
             
+            <!-- Phone -->
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-brady-gold bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brady-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-1">Phone</h3>
+                <p class="text-gray-300">
+                  <a href="tel:+6582837609" class="text-brady-gold hover:underline">+65 8283 7609</a>
+                </p>
+              </div>
+            </div>
+            
             <!-- Hours -->
             <div class="flex items-start">
               <div class="flex-shrink-0 w-12 h-12 bg-brady-gold bg-opacity-20 rounded-full flex items-center justify-center mr-4">
@@ -358,17 +373,48 @@ const submitForm = async () => {
         </p>
       </div>
       
-      <!-- Google Maps Embed -->
-      <div class="glass-card rounded-lg overflow-hidden h-96">
+      <!-- Google Maps Embed with custom overlay pin -->
+      <div class="glass-card rounded-lg overflow-hidden h-96 relative">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059445135!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sca!4v1634567890123!5m2!1sen!2sca" 
+          src="https://www.google.com/maps?q=BLK+808+French+Road,+%2303-14,+Kitchener+Complex,+Singapore+200808&hl=en&z=17&iwloc=A&output=embed" 
           width="100%" 
           height="100%" 
           style="border:0;" 
           allowfullscreen="" 
           loading="lazy"
-          class="filter grayscale"
+          class="filter"
         ></iframe>
+
+        <!-- Centered custom pin and callout -->
+        <div class="absolute inset-0 pointer-events-none">
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full pointer-events-auto group">
+            <!-- Large Pin -->
+            <div class="flex flex-col items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-12 w-12 drop-shadow-lg">
+                <path fill="#e11d48" d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7z"/>
+                <circle cx="12" cy="9" r="3.2" fill="#fff"/>
+              </svg>
+              <div class="h-2 w-2 rounded-full bg-brady-gold mt-1 animate-ping"></div>
+            </div>
+
+            <!-- Callout Card -->
+            <div class="mt-2 bg-white/95 text-brady-charcoal rounded-md shadow-xl p-3 w-72 border border-gray-200 group-hover:opacity-100 opacity-95">
+              <h4 class="font-semibold">Brady Interiors</h4>
+              <p class="text-sm mt-1">BLK 808 French Road, #03-14<br>Kitchener Complex, Singapore 200808</p>
+              <div class="flex gap-2 mt-3">
+                <a 
+                  href="https://www.google.com/maps/dir/?api=1&destination=BLK+808+French+Road,+%2303-14,+Kitchener+Complex,+Singapore+200808" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="btn-primary px-3 py-1 text-sm"
+                >
+                  Get Directions
+                </a>
+                <a href="tel:+6582837609" class="btn-outline px-3 py-1 text-sm">Call</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -390,7 +436,7 @@ const submitForm = async () => {
               Book a consultation with our team to discuss your project requirements and explore how we can help bring your vision to life.
             </p>
             <div class="space-y-4">
-              <a href="tel:+15551234567" class="btn-primary block text-center">Call Us Now</a>
+              <a href="tel:+6582837609" class="btn-primary block text-center">Call Us Now</a>
               <div class="text-center">
                 <span class="text-gray-500">or</span>
               </div>

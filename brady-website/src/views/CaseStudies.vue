@@ -157,13 +157,13 @@ const onImgError = (e) => { if (e && e.target) e.target.src = FALLBACK_IMG }
     </div>
     <div class="container mx-auto px-4 md:px-6 relative">
       <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Blob</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Blog</h1>
         <p class="text-xl text-gray-300 mb-8">
           Real outcomes from engineering and interior projects—showcasing goals, solutions, and measurable impact.
         </p>
         <div class="flex flex-wrap gap-4">
           <router-link to="/contact" class="btn-primary">Discuss Your Project</router-link>
-          <a href="#blob-grid" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">Browse Blobs</a>
+          <a href="#blog-grid" class="btn-outline text-white border-white hover:bg-white hover:text-brady-charcoal">Browse Blogs</a>
         </div>
       </div>
     </div>
@@ -189,12 +189,12 @@ const onImgError = (e) => { if (e && e.target) e.target.src = FALLBACK_IMG }
         <button @click="fetchStudies" class="mt-4 btn-primary">Try Again</button>
       </div>
 
-      <div id="blob-grid" v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="blog-grid" v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="study in filteredStudies" :key="study.id" class="group cursor-pointer" @click="openStudyModal(study)">
           <div class="relative overflow-hidden rounded-lg mb-4">
             <img :src="study.images[0]" :alt="study.title" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" @error="onImgError">
             <div class="absolute inset-0 bg-gradient-to-t from-brady-charcoal to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
-              <span class="text-white font-medium px-4 py-2 rounded-md border border-white">View Blob</span>
+              <span class="text-white font-medium px-4 py-2 rounded-md border border-white">View Blog</span>
             </div>
           </div>
           <div class="flex items-center gap-2 mb-1">
@@ -211,7 +211,7 @@ const onImgError = (e) => { if (e && e.target) e.target.src = FALLBACK_IMG }
       </div>
 
       <div v-if="!isLoading && !error && filteredStudies.length === 0" class="text-center py-20">
-        <p class="text-lg text-gray-300">No blobs found in this category.</p>
+        <p class="text-lg text-gray-300">No blogs found in this category.</p>
       </div>
     </div>
   </section>
