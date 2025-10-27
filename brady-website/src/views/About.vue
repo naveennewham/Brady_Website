@@ -106,7 +106,7 @@ const onImgError = (e) => {
         </div>
         <div class="relative">
           <div class="absolute -top-6 -left-6 w-24 h-24 bg-brady-gold opacity-20 rounded-full"></div>
-          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brady Construction Office" class="rounded-lg shadow-xl relative z-10">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brady Office" class="rounded-lg shadow-xl relative z-10">
           <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brady-beige opacity-60 rounded-full"></div>
         </div>
       </div>
@@ -173,7 +173,7 @@ const onImgError = (e) => {
         </div>
         <div class="relative">
           <div class="absolute -top-6 -left-6 w-24 h-24 bg-brady-gold opacity-20 rounded-full"></div>
-          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brady Construction Office" class="rounded-lg shadow-xl relative z-10">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brady Office" class="rounded-lg shadow-xl relative z-10">
           <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brady-beige opacity-60 rounded-full"></div>
         </div>
       </div>

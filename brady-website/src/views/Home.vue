@@ -416,7 +416,7 @@ const submitCta = async () => {
           <!-- Main Image with Overlay -->
           <div class="relative rounded-sm overflow-hidden shadow-2xl">
             <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                 alt="Brady Construction Team" loading="lazy" decoding="async"
+                 alt="Brady Team" loading="lazy" decoding="async"
                  class="w-full h-[500px] object-cover">
             
             <!-- Gradient Overlay -->

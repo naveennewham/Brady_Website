@@ -262,7 +262,7 @@ const portfolioItems = [
             </svg>
           </div>
           <blockquote class="text-lg italic text-gray-300 mb-6">
-            "Brady Construction transformed our office space into a modern, functional environment that perfectly reflects our brand. The team was professional, creative, and attentive to our needs throughout the entire process."
+            "Brady transformed our office space into a modern, functional environment that perfectly reflects our brand. The team was professional, creative, and attentive to our needs throughout the entire process."
           </blockquote>
           <div class="flex items-center">
             <img src="https://randomuser.me/api/portraits/women/48.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
