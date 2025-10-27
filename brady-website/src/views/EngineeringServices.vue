@@ -173,7 +173,7 @@ const onImgError = (e) => {
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 class="section-title text-white">Our Engineering Expertise</h2>
         <p class="text-gray-300">
-          At Brady Construction, we offer a comprehensive range of engineering services to support your construction and renovation projects. Our team of experienced engineers brings technical knowledge, innovative thinking, and practical problem-solving to every challenge.
+          At Brady, we offer a comprehensive range of engineering services to support your construction and renovation projects. Our team of experienced engineers brings technical knowledge, innovative thinking, and practical problem-solving to every challenge.
         </p>
       </div>
 

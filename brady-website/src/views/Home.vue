@@ -16,7 +16,7 @@ const testimonials = ref([
     id: 1,
     name: 'John Smith',
     position: 'CEO, BuildTech Inc.',
-    content: 'Brady Construction delivered exceptional engineering services for our commercial project. Their attention to detail and innovative solutions exceeded our expectations.',
+    content: 'Brady delivered exceptional engineering services for our commercial project. Their attention to detail and innovative solutions exceeded our expectations.',
     image: 'https://randomuser.me/api/portraits/men/32.jpg'
   },
   {
@@ -30,7 +30,7 @@ const testimonials = ref([
     id: 3,
     name: 'Michael Chen',
     position: 'Project Manager, Urban Developments',
-    content: 'Working with Brady Construction was seamless from start to finish. Their engineering team provided excellent solutions to complex structural challenges.',
+    content: 'Working with Brady was seamless from start to finish. Their engineering team provided excellent solutions to complex structural challenges.',
     image: 'https://randomuser.me/api/portraits/men/67.jpg'
   }
 ]);
@@ -516,7 +516,7 @@ const submitCta = async () => {
         </div>
         
         <p class="text-gray-300 max-w-3xl mx-auto mt-8 text-lg">
-          At Brady Construction, we combine technical expertise with innovative design to deliver exceptional results. 
+          At Brady, we combine technical expertise with innovative design to deliver exceptional results. 
           Here's why discerning clients trust us with their most important projects.
         </p>
       </div>
@@ -1080,7 +1080,7 @@ const submitCta = async () => {
         </div>
         <div class="md:w-1/2">
           <p class="text-gray-300 text-lg">
-            Don't just take our word for it. Here's what our clients have to say about working with Brady Construction.
+            Don't just take our word for it. Here's what our clients have to say about working with Brady.
           </p>
         </div>
       </div>

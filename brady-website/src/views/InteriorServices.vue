@@ -146,7 +146,7 @@ const portfolioItems = [
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 class="section-title text-white">Our Interior Design Expertise</h2>
         <p class="text-gray-300">
-          At Brady Construction, we offer comprehensive interior design services for both commercial and residential spaces. Our team of talented designers combines creativity, technical knowledge, and attention to detail to create spaces that are both beautiful and functional.
+          At Brady, we offer comprehensive interior design services for both commercial and residential spaces. Our team of talented designers combines creativity, technical knowledge, and attention to detail to create spaces that are both beautiful and functional.
         </p>
       </div>
 
@@ -281,7 +281,7 @@ const portfolioItems = [
             </svg>
           </div>
           <blockquote class="text-lg italic text-gray-300 mb-6">
-            "We couldn't be happier with the redesign of our home. The Brady Construction team listened to our ideas and transformed them into a beautiful, cohesive design that exceeded our expectations."
+            "We couldn't be happier with the redesign of our home. The Brady team listened to our ideas and transformed them into a beautiful, cohesive design that exceeded our expectations."
           </blockquote>
           <div class="flex items-center">
             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">

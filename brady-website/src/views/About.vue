@@ -6,7 +6,7 @@ const teamMembers = [
     id: 1,
     name: 'Robert Brady',
     position: 'Founder & CEO',
-    bio: 'With over 25 years of experience in construction and engineering, Robert founded Brady Construction with a vision to deliver excellence in every project.',
+    bio: 'With over 25 years of experience in construction and engineering, Robert founded Brady with a vision to deliver excellence in every project.',
     image: 'https://randomuser.me/api/portraits/men/41.jpg'
   },
   {
@@ -41,7 +41,7 @@ const teamMembers = [
     id: 6,
     name: 'Lisa Patel',
     position: 'Client Relations Manager',
-    bio: 'Lisa is dedicated to ensuring our clients receive exceptional service throughout their journey with Brady Construction.',
+    bio: 'Lisa is dedicated to ensuring our clients receive exceptional service throughout their journey with Brady.',
     image: 'https://randomuser.me/api/portraits/women/47.jpg'
   }
 ];
@@ -76,7 +76,7 @@ const onImgError = (e) => {
     <div class="absolute top-0 left-0 w-1 h-full bg-brady-gold opacity-70"></div>
     <div class="container mx-auto px-4 md:px-6 relative">
       <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">About Brady Construction</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">About Brady</h1>
         <p class="text-xl text-gray-300 mb-8">
           Building excellence through innovation, quality craftsmanship, and client-focused service since 2005.
         </p>
@@ -95,13 +95,13 @@ const onImgError = (e) => {
         <div>
           <h2 class="section-title text-white">Our Story</h2>
           <p class="text-gray-300 mb-6">
-            Brady Construction was founded in 2005 with a simple mission: to deliver exceptional engineering and design services that exceed client expectations. What began as a small team of passionate professionals has grown into a comprehensive construction services company with expertise across mechanical engineering, electrical systems, interior design, and more.
+            Brady was founded in 2005 with a simple mission: to deliver exceptional engineering and design services that exceed client expectations. What began as a small team of passionate professionals has grown into a comprehensive construction services company with expertise across mechanical engineering, electrical systems, interior design, and more.
           </p>
           <p class="text-gray-300 mb-6">
             Over the years, we've successfully completed hundreds of projects ranging from residential renovations to large-scale commercial developments. Our growth has been built on a foundation of technical excellence, creative problem-solving, and unwavering commitment to client satisfaction.
           </p>
           <p class="text-gray-300">
-            Today, Brady Construction continues to evolve and innovate, embracing new technologies and methodologies while staying true to our core values of quality, integrity, and service.
+            Today, Brady continues to evolve and innovate, embracing new technologies and methodologies while staying true to our core values of quality, integrity, and service.
           </p>
         </div>
         <div class="relative">
@@ -162,13 +162,13 @@ const onImgError = (e) => {
         <div>
           <h2 class="section-title text-white">Our Story</h2>
           <p class="text-gray-300 mb-6">
-            Brady Construction was founded in 2005 with a simple mission: to deliver exceptional engineering and design services that exceed client expectations. What began as a small team of passionate professionals has grown into a comprehensive construction services company with expertise across mechanical engineering, electrical systems, interior design, and more.
+            Brady was founded in 2005 with a simple mission: to deliver exceptional engineering and design services that exceed client expectations. What began as a small team of passionate professionals has grown into a comprehensive construction services company with expertise across mechanical engineering, electrical systems, interior design, and more.
           </p>
           <p class="text-gray-300 mb-6">
             Over the years, we've successfully completed hundreds of projects ranging from residential renovations to large-scale commercial developments. Our growth has been built on a foundation of technical excellence, creative problem-solving, and unwavering commitment to client satisfaction.
           </p>
           <p class="text-gray-300">
-            Today, Brady Construction continues to evolve and innovate, embracing new technologies and methodologies while staying true to our core values of quality, integrity, and service.
+            Today, Brady continues to evolve and innovate, embracing new technologies and methodologies while staying true to our core values of quality, integrity, and service.
           </p>
         </div>
         <div class="relative">
