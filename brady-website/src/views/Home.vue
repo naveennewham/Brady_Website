@@ -35,6 +35,9 @@ const testimonials = ref([
   }
 ]);
 
+// Feature flag: toggle testimonials visibility (hidden for now)
+const showTestimonials = ref(false);
+
 // Current testimonial index
 const currentTestimonial = ref(0);
 
@@ -42,7 +45,8 @@ const currentTestimonial = ref(0);
 let testimonialInterval;
 
 onMounted(() => {
-  startTestimonialRotation();
+  // Start rotation only when testimonials are shown
+  if (showTestimonials.value) startTestimonialRotation();
   // If we've already loaded the hero video once in this session, skip the poster
   if (typeof window !== 'undefined' && window.sessionStorage) {
     const loadedBefore = sessionStorage.getItem('heroVideoReady') === '1'
@@ -1053,7 +1057,7 @@ const submitCta = async () => {
   </section>
 
   <!-- Testimonials Section with Futuristic Layout -->
-  <section class="py-16 md:py-24 bg-brady-darker relative overflow-hidden">
+  <section v-if="showTestimonials" class="py-16 md:py-24 bg-brady-darker relative overflow-hidden">
     <!-- Background Elements -->
     <div class="absolute top-0 right-0 w-1/2 h-full opacity-5">
       <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
