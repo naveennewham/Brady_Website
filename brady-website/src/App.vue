@@ -2,7 +2,7 @@
 import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import logoTransUrl from './assets/brady_logo_trans.png'
+import logoTransUrl from './assets/brady_logo.png'
 import logoGrayUrl from './assets/brady_logo_gray.png'
 
 // Navbar state
