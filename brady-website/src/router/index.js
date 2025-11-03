@@ -48,6 +48,18 @@ const routes = [
     component: () => import('../views/Contact.vue'),
     meta: { title: 'Brady - Contact Us' }
   },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: () => import('../views/PrivacyPolicy.vue'),
+    meta: { title: 'Brady - Privacy Policy' }
+  },
+  {
+    path: '/terms-of-service',
+    name: 'TermsOfService',
+    component: () => import('../views/TermsOfService.vue'),
+    meta: { title: 'Brady - Terms of Service' }
+  },
   // Catch-all route for 404
   {
     path: '/:pathMatch(.*)*',

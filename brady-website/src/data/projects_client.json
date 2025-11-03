@@ -8,7 +8,8 @@
     "client": "Energetix",
     "location": "Singapore",
     "year": "2022 - Present",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": ["eng services/solar_pannel.jpg"],
+    "images": []
   },
   {
     "id": "l14",
@@ -19,7 +20,11 @@
     "client": "Eigen Energy",
     "location": "Singapore",
     "year": "2022 - Present",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": [],
+    "images": [
+      "https://images.unsplash.com/photo-1584270354949-c26b0d5b0f10?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1581091220874-6c76b0b5f27a?q=80&w=1600&auto=format&fit=crop"
+    ]
   },
   {
     "id": "l15",
@@ -103,7 +108,7 @@
     "title": "Hougang HDB N3C13",
     "category": "engineering",
     "subcategory": "M&E Maintenance",
-    "description": "Maintenance of mechanical and painting work for HDB blocks.",
+    "description": "Electrical and CATV works.",
     "client": "CKR Contract Services Pte Ltd",
     "location": "Hougang, Singapore",
     "year": "2019 - Present",
@@ -129,7 +134,7 @@
     "client": "August International Pte Ltd",
     "location": "Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": ["eng services/plumbing1.jpeg", "eng services/plumbing2.jpeg"]
   },
   {
     "id": "l25",
@@ -140,7 +145,7 @@
     "client": "TMC Academy Pte Ltd",
     "location": "Singapore",
     "year": "2019 - Present",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": ["eng services/plumbing1.jpeg", "eng services/plumbing2.jpeg"]
   },
   {
     "id": "l26",
@@ -151,7 +156,7 @@
     "client": "Global Marine Safety (Singapore) Pte Ltd",
     "location": "Singapore",
     "year": "2020 - Present",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": ["eng services/plumbing1.jpeg", "eng services/plumbing2.jpeg"]
   },
   {
     "id": "l27",
@@ -206,7 +211,11 @@
     "client": "City Developments / Eigen Energy Pte Ltd",
     "location": "Pasir Ris, Singapore",
     "year": "2016/2017",
-    "imagePaths": ["eng services/welding.jpg", "eng services/painting.jpg"]
+    "imagePaths": [],
+    "images": [
+      "https://images.unsplash.com/photo-1508615070457-7baeba4003a1?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506462941602-0418f6a56da5?q=80&w=1600&auto=format&fit=crop"
+    ]
   },
   {
     "id": "l32",

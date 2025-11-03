@@ -317,10 +317,11 @@ const fetchProjects = async () => {
 function loadFromLocal() {
   try {
     const resolved = (localProjects || []).map(p => {
-      const images = Array.isArray(p.imagePaths)
-        ? p.imagePaths.map(rel => resolveAsset(rel)).filter(Boolean)
-        : Array.isArray(p.images)
-          ? p.images
+      // Prefer explicit images array if provided and non-empty; otherwise resolve imagePaths
+      let images = Array.isArray(p.images) && p.images.length
+        ? p.images
+        : Array.isArray(p.imagePaths) && p.imagePaths.length
+          ? p.imagePaths.map(rel => resolveAsset(rel)).filter(Boolean)
           : []
       return {
         id: p.id,
@@ -419,22 +420,6 @@ const onImgError = (e) => {
         <button @click="setFilter('maintenance')" :class="['px-6 py-2 mx-2 mb-2 rounded-md transition-colors', activeFilter === 'maintenance' ? 'bg-brady-gold text-white' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Maintenance</button>
       </div>
 
-      <!-- Segment + Year controls (hidden for maintenance view) -->
-      <div v-if="activeFilter !== 'maintenance'" class="flex flex-wrap items-center justify-between gap-4 mb-8">
-        <div class="inline-flex rounded-md overflow-hidden border border-brady-gray-700">
-          <button @click="selectedSegment = 'all'" :class="['px-4 py-2 text-sm', selectedSegment === 'all' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">All</button>
-          <button @click="selectedSegment = 'current'" :class="['px-4 py-2 text-sm', selectedSegment === 'current' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Current</button>
-          <button @click="selectedSegment = 'past'" :class="['px-4 py-2 text-sm', selectedSegment === 'past' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Past</button>
-        </div>
-        <div class="flex items-center gap-2">
-          <label class="text-sm text-gray-400">Year</label>
-          <select v-model="selectedYear" class="bg-brady-gray-800 text-gray-200 border border-brady-gray-700 px-3 py-2 text-sm">
-            <option value="all">All</option>
-            <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
-          </select>
-        </div>
-      </div>
-
       <!-- Loading State -->
       <div v-if="isLoading" class="flex justify-center items-center py-20">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-brady-gold"></div>
@@ -449,21 +434,7 @@ const onImgError = (e) => {
 
       <!-- Maintenance View -->
       <div v-else-if="activeFilter === 'maintenance'">
-        <!-- Controls for Maintenance -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <div class="inline-flex rounded-md overflow-hidden border border-brady-gray-700">
-            <button @click="selectedSegment = 'all'" :class="['px-4 py-2 text-sm', selectedSegment === 'all' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">All</button>
-            <button @click="selectedSegment = 'current'" :class="['px-4 py-2 text-sm', selectedSegment === 'current' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Current</button>
-            <button @click="selectedSegment = 'past'" :class="['px-4 py-2 text-sm', selectedSegment === 'past' ? 'bg-brady-gold text-brady-darker' : 'bg-brady-gray-800 text-gray-300 hover:bg-brady-gray-700']">Past</button>
-          </div>
-          <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-400">Year</label>
-            <select v-model="selectedYear" class="bg-brady-gray-800 text-gray-200 border border-brady-gray-700 px-3 py-2 text-sm">
-              <option value="all">All</option>
-              <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
-            </select>
-          </div>
-        </div>
+        <!-- Controls removed as requested -->
 
         <div class="flex flex-col gap-12">
           <!-- Current -->

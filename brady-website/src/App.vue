@@ -201,11 +201,9 @@ const displayedLogo = computed(() => {
       <div class="border-t border-brady-gray-700 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between text-gray-400 text-sm">
         <p>&copy; {{ new Date().getFullYear() }} Brady. All rights reserved.</p>
         <div class="flex items-center gap-4 mt-3 md:mt-0">
-          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <router-link to="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</router-link>
           <span class="opacity-40">|</span>
-          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-          <span class="opacity-40">|</span>
-          <a href="#" class="hover:text-white transition-colors">Cookies</a>
+          <router-link to="/terms-of-service" class="hover:text-white transition-colors">Terms of Service</router-link>
         </div>
       </div>
     </div>

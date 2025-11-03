@@ -240,7 +240,7 @@ const submitCta = async () => {
                 <option value="" disabled>Select a service</option>
                 <option>Mechanical Engineering</option>
                 <option>Electrical Engineering</option>
-                <option>Plumbing Engineering</option>
+                <option>Plumbing</option>
                 <option>Systems Integration</option>
                 <option>Steel Welding & Fabrication</option>
                 <option>Painting & Waterproofing</option>
@@ -453,10 +453,10 @@ const submitCta = async () => {
           
           <!-- Content with Enhanced Typography -->
           <p class="text-gray-300 mb-8 text-lg leading-relaxed">
-            <span class="text-brady-gold font-heading text-2xl">B</span>rady Construction is a premier engineering and construction firm specializing in innovative solutions for complex projects. With over 15 years of industry experience, we've established ourselves as leaders in delivering exceptional quality and cutting-edge design.  
+            <span class="text-brady-gold font-heading text-2xl">B</span>rady is a premier engineering and construction firm specializing in innovative solutions for complex projects. With over 15 years of industry experience, we've established ourselves as leaders in delivering exceptional quality and cutting-edge design.  
           </p>
           
-          <p class="text-gray-300 mb-10 leading-relaxed">
+          <p class="text-gray-300 mb-10 text-lg leading-relaxed">
             Our team of highly skilled engineers, designers, and construction professionals work collaboratively to transform your vision into reality. We pride ourselves on our attention to detail, commitment to excellence, and ability to deliver projects on time and within budget.
           </p>
           
@@ -470,7 +470,7 @@ const submitCta = async () => {
               </div>
               <div>
                 <h3 class="text-2xl font-heading text-brady-gold mb-2">Our Mission</h3>
-                <p class="text-gray-300">To deliver exceptional engineering and construction solutions that exceed client expectations and set new industry standards.</p>
+                <p class="text-gray-300">To deliver exceptional Engineering and construction solutions that exceed client expectations and set new industry standards.</p>
               </div>
             </div>
           </div>
@@ -484,7 +484,7 @@ const submitCta = async () => {
               </div>
               <div>
                 <h3 class="text-2xl font-heading text-brady-gold mb-2">Our Vision</h3>
-                <p class="text-gray-300">To be the industry leader in innovative construction and engineering solutions, recognized globally for excellence and innovation.</p>
+                <p class="text-gray-300">To be the industry leader in Engineering and Construction solutions, recognized globally for excellence and innovation.</p>
               </div>
             </div>
           </div>
@@ -604,7 +604,7 @@ const submitCta = async () => {
               <div>
                 <h3 class="text-2xl font-heading text-brady-gold mb-4">COMMUNICATION</h3>
                 <p class="text-gray-300 leading-relaxed">
-                  We maintain transparent, consistent communication throughout your project, ensuring you're informed every step of the way. Our dedicated project managers provide regular updates and are always available to address your questions or concerns.
+                  We maintain transparent, consistent communication throughout your project, ensuring you're informed every step of the way.Ensuring you are informed of every milestone. along the way.
                 </p>
               </div>
             </div>
@@ -685,7 +685,7 @@ const submitCta = async () => {
         
         <div class="md:w-1/2 relative z-10">
           <p class="text-gray-300 text-xl leading-relaxed max-w-xl">
-            We provide comprehensive solutions across engineering and interior design, delivering excellence and unparalleled craftsmanship at every step of your project.
+            We provide comprehensive solutions, delivering excellence and unparalleled craftsmanship at every step of your project.
           </p>
         </div>
       </div>
@@ -805,7 +805,7 @@ const submitCta = async () => {
                 
                 <!-- Service Content with Enhanced Typography -->
                 <div class="text-sm text-brady-gold tracking-wider mb-3">PREMIUM SERVICE</div>
-                <h4 class="text-2xl font-semibold mb-4 text-white font-heading">Plumbing Engineering</h4>
+                <h4 class="text-2xl font-semibold mb-4 text-white font-heading">Plumbing</h4>
                 <p class="text-gray-300 leading-relaxed mb-6">
                   Advanced plumbing system design and installation for optimal water management and conservation, utilizing sustainable technologies and premium materials for long-lasting performance.
                 </p>
