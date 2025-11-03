@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import ProfileHighlights from '../components/ProfileHighlights.vue'
-import logoUrl from '../assets/brady_logo_trans.png'
+import logoUrl from '../assets/brady_logo.png'
 
 // Filter state
 const activeFilter = ref('all')
