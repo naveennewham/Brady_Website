@@ -469,7 +469,7 @@ const onImgError = (e) => {
                           <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
                           <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
                           <p class="mt-2 text-sm text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
-                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}</div>
                         </div>
                       </div>
                       <div class="shrink-0 self-center mr-1">
@@ -509,7 +509,7 @@ const onImgError = (e) => {
                           <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
                           <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
                           <p class="mt-1 text-sm text-gray-300 line-clamp-2" v-if="project.description">{{ project.description }}</p>
-                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                          <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}</div>
                         </div>
                       </div>
                       <div class="shrink-0 self-center mr-1">
@@ -547,7 +547,7 @@ const onImgError = (e) => {
                     <div class="text-xs tracking-wide text-brady-gold/90">{{ project.subcategory }}</div>
                     <h3 class="mt-1 text-white font-normal text-xl leading-snug font-heading line-clamp-2">{{ formatTitle(project.title) }}</h3>
                     <p class="mt-2 text-sm text-gray-200 leading-relaxed line-clamp-2" v-if="project.description">{{ project.description }}</p>
-                    <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}<span class="mx-2 opacity-40">•</span><span class="text-gray-400">Year:</span> {{ project.year }}</div>
+                    <div class="mt-1 text-xs text-gray-400 truncate"><span class="text-gray-400">Client:</span> {{ project.client }}</div>
                   </div>
                 </div>
                 <div class="shrink-0 self-center mr-1">
@@ -609,7 +609,6 @@ const onImgError = (e) => {
             <div class="space-y-1 text-sm text-gray-300">
               <div><span class="text-gray-400">Client:</span> {{ selectedProject.client }}</div>
               <div v-if="selectedProject.location"><span class="text-gray-400">Location:</span> {{ selectedProject.location }}</div>
-              <div><span class="text-gray-400">Year:</span> {{ selectedProject.year }}</div>
             </div>
           </div>
         </div>

@@ -604,7 +604,7 @@ const submitCta = async () => {
               <div>
                 <h3 class="text-2xl font-heading text-brady-gold mb-4">COMMUNICATION</h3>
                 <p class="text-gray-300 leading-relaxed">
-                  We maintain transparent, consistent communication throughout your project, ensuring you're informed every step of the way.Ensuring you are informed of every milestone. along the way.
+                  We maintain transparent, consistent communication throughout your project, ensuring you're informed every step of the way.Ensuring you are informed of every milestone along the way.
                 </p>
               </div>
             </div>
@@ -739,7 +739,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -747,7 +747,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
             
@@ -775,7 +775,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -783,7 +783,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
             
@@ -811,7 +811,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -819,7 +819,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
             
@@ -847,7 +847,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -855,7 +855,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
             
@@ -883,7 +883,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -891,7 +891,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
             
@@ -919,7 +919,7 @@ const submitCta = async () => {
                 </p>
                 
                 <!-- Elegant Link -->
-                <div class="inline-block group-hover:translate-x-2 transition-transform duration-300">
+                <router-link to="/engineering-services" class="inline-block group-hover:translate-x-2 transition-transform duration-300">
                   <span class="text-brady-gold flex items-center">
                     <span class="mr-2">Learn More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -927,7 +927,7 @@ const submitCta = async () => {
                     </svg>
                   </span>
                   <div class="w-full h-px bg-brady-gold opacity-50 mt-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
+                </router-link>
               </div>
             </div>
           </div>

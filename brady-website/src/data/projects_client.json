@@ -20,11 +20,8 @@
     "client": "Eigen Energy",
     "location": "Singapore",
     "year": "2022 - Present",
-    "imagePaths": [],
-    "images": [
-      "https://images.unsplash.com/photo-1584270354949-c26b0d5b0f10?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1581091220874-6c76b0b5f27a?q=80&w=1600&auto=format&fit=crop"
-    ]
+    "imagePaths": ["eng services/solar_pannel.jpg"],
+    "images": []
   },
   {
     "id": "l15",
@@ -211,11 +208,8 @@
     "client": "City Developments / Eigen Energy Pte Ltd",
     "location": "Pasir Ris, Singapore",
     "year": "2016/2017",
-    "imagePaths": [],
-    "images": [
-      "https://images.unsplash.com/photo-1508615070457-7baeba4003a1?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1506462941602-0418f6a56da5?q=80&w=1600&auto=format&fit=crop"
-    ]
+    "imagePaths": ["eng services/solar_pannel.jpg"],
+    "images": []
   },
   {
     "id": "l32",
